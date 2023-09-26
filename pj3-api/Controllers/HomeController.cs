@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
 using pj3_api.Service.Home;
+using System.Net;
 
 namespace pj3_api.Controllers
 {
@@ -16,10 +17,10 @@ namespace pj3_api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Movie>> GetMovies()
+        public async Task<HttpResultObject> GetMovies()
         {
             var result = await _homeService.Value.GetMovies();
-            return result;
+            return new HttpResultObject() { Code = HttpStatusCode.OK,Status = "OK",Data = result,Message = "OK" };
         }
 
         [HttpGet]

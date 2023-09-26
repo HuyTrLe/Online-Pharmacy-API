@@ -34,7 +34,7 @@ namespace pj3_api.Repository.Home
             parameters.Add("@ID", movie.ID, SqlDbType.Int, ParameterDirection.Output);
             var result = await _sqlQueryDataSource.Value.Insert(HomeQuery.InsertMovie, parameters);
             int newID = parameters.Get<int>("@ID");
-            return result;
+            return newID;
         }
     }
 }
