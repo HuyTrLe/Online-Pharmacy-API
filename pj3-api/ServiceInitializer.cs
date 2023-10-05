@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using pj3_api.Model;
+using pj3_api.Repository.Feedback;
 using pj3_api.Repository.Home;
 using pj3_api.Repository.User;
+using pj3_api.Service.Feedback;
 using pj3_api.Service.Home;
 using pj3_api.Service.Mail;
 using pj3_api.Service.User;
@@ -25,6 +27,7 @@ namespace pj3_api
             services.AddSingleton(typeof(AppSettings), _appSettings);
             services.AddSingleton<IHomeService, HomeService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IFeedbackService, FeedbackService>();
             services.AddSingleton<IMailService, MailServiceApp>();
             //services.AddSingleton<IEmployeeManagerService, EmployeeManagerService>();
             //services.AddSingleton<ILoginService, LoginService>();
@@ -32,6 +35,7 @@ namespace pj3_api
 
             services.AddTransient<IHomeRepository, HomeRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
             //services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             //services.AddTransient<IEmployeeManagerRepository, EmployeeManagerRepository>();
             //services.AddTransient<ILoginRepository, LoginRepository>();
