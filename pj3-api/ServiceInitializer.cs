@@ -3,6 +3,7 @@ using pj3_api.Model;
 using pj3_api.Repository.Home;
 using pj3_api.Repository.User;
 using pj3_api.Service.Home;
+using pj3_api.Service.Mail;
 using pj3_api.Service.User;
 
 namespace pj3_api
@@ -24,7 +25,7 @@ namespace pj3_api
             services.AddSingleton(typeof(AppSettings), _appSettings);
             services.AddSingleton<IHomeService, HomeService>();
             services.AddSingleton<IUserService, UserService>();
-            //services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IMailService, MailServiceApp>();
             //services.AddSingleton<IEmployeeManagerService, EmployeeManagerService>();
             //services.AddSingleton<ILoginService, LoginService>();
 

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
 using pj3_api.Model.User;
+using pj3_api.Service.Home;
+using pj3_api.Service.Mail;
 using pj3_api.Service.User;
 using System.Net;
+using System.Net.Mail;
 
 namespace pj3_api.Controllers
 {
@@ -11,9 +14,11 @@ namespace pj3_api.Controllers
     public class UserController : ControllerBase
     {
         private readonly Lazy<IUserService> _userService;
-        public UserController(IUserService userService)
+        private readonly Lazy<IMailService> _mailService;
+        public UserController(IUserService userService,IMailService mailService)
         {
             _userService = new Lazy<IUserService>(() => userService);
+            _mailService = new Lazy<IMailService>(() => mailService);
         }
 
         [HttpPost]
@@ -77,6 +82,135 @@ namespace pj3_api.Controllers
                 return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
             }
 
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> UpdateRole(Role role)
+        {
+            try
+            {
+                var result = await _userService.Value.UpdateRole(role);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> InsertRole(Role role)
+        {
+            try
+            {
+                var result = await _userService.Value.InsertRole(role);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> GetRole()
+        {
+            try
+            {
+                var result = await _userService.Value.GetRole();
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResultObject> InsertCareer(Career career)
+        {
+            try
+            {
+                var result = await _userService.Value.GetRole();
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResultObject> GetCareer()
+        {
+            try
+            {
+                var result = await _userService.Value.GetCareer();
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResultObject> UpdatetCareer(Career career)
+        {
+            try
+            {
+                var result = await _userService.Value.UpdateCareer(career);
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResultObject> GetCareerByUserID(Career career)
+        {
+            try
+            {
+                var result = await _userService.Value.GetCareerByUserID(career);
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public void Sendmail(Model.Mail mailService)
+        {
+            mailService.Attachments = @"D:\5337.xml";
+            _mailService.Value.SendMail(mailService);
         }
     }
 }

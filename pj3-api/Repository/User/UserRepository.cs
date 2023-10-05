@@ -58,6 +58,61 @@ namespace pj3_api.Repository.User
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.UpdateUserByID, parameters);
             return result;
         }
-     
+
+        public async Task<int> InsertRole(Role role)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@Name", role.Name, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertRole, parameters);
+            return result;
+            
+        }
+
+        public async Task<IEnumerable<Role>> GetRole()
+        {
+            var result = await _sqlQueryDataSource.Value.Select<Role>(UserQuery.GetRole, null);
+            return result;
+        }
+
+        public async Task<int> UpdateRole(Role role)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@Name", role.Name, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", role.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.UpdateRole, parameters);
+            return result;
+        }
+
+        public async Task<IEnumerable<Career>> GetCareer()
+        {
+            var result = await _sqlQueryDataSource.Value.Select<Career>(UserQuery.GetCareer, null) ;
+            return result;
+        }
+
+        public async Task<int> InsertCareer(Career career)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", career.UserID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@File", career.File, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@Status", career.Status, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertCareer, parameters);
+            return result;
+        }
+
+        public async Task<int> UpdateCareer(Career career)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@Status", career.Status, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Update(UserQuery.UpdateCareer, parameters);
+            return result;
+        }
+
+        public async Task<IEnumerable<Career>> GetCareerByUserID(Career career)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", career.UserID, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<Career>(UserQuery.GetCareerByUserID, parameters);
+            return result;
+        }
     }
 }

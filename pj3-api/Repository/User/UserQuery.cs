@@ -35,6 +35,21 @@
                                             UpdateDate = GETDATE()
                                             WHERE ID = @ID";
         public const string DeactiveUser = "Select * from [User]";
-
+        public const string InsertRole = @"Insert into Role(Name) VALUES (@Name)";
+        public const string GetRole = @"Select * from Role";
+        public const string UpdateRole = @"Update Role set Name = @Name where ID = @ID";
+        public const string InsertCareer = @"Insert into Career(
+                                                UserID,
+                                                File,
+                                                Status,
+                                                CreateDate)
+                                                VALUES(
+                                                @UserID,
+                                                @File,
+                                                @Status,
+                                                GETDATE())";
+        public const string GetCareer = @"select * from Career order by ID desc";
+        public const string GetCareerByUserID = @"select * from Career where UserID = @UserID order by ID desc";
+        public const string UpdateCareer = @"Update Career set Status = @Status where ID = @ID";
     }
 }
