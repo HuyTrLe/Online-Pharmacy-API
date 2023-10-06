@@ -2,6 +2,7 @@
 {
     public static class UserQuery
     {
+        #region User
         public const string GetUserByEmailPassword = "Select * from [User] where Email = @Email and Password = @Password";
         public const string GetUser = "Select * from [User]";
         public const string InsertUser = @"Insert into [User] (
@@ -34,10 +35,15 @@
                                             Education = @Education,
                                             UpdateDate = GETDATE()
                                             WHERE ID = @ID";
-        public const string DeactiveUser = "Select * from [User]";
+        #endregion
+
+        #region Role
         public const string InsertRole = @"Insert into Role(Name) VALUES (@Name)";
         public const string GetRole = @"Select * from Role";
         public const string UpdateRole = @"Update Role set Name = @Name where ID = @ID";
+        #endregion
+
+        #region Career
         public const string InsertCareer = @"Insert into Career(
                                                 UserID,
                                                 File,
@@ -51,5 +57,31 @@
         public const string GetCareer = @"select * from Career order by ID desc";
         public const string GetCareerByUserID = @"select * from Career where UserID = @UserID order by ID desc";
         public const string UpdateCareer = @"Update Career set Status = @Status where ID = @ID";
+        #endregion
+
+        #region Education
+        public const string InsertEducation = @"Insert into Education(
+                                                UserID,
+                                                SchoolName,
+                                                SchoolType,
+                                                Degree,
+                                                From,
+                                                To)
+                                                VALUES(
+                                                @UserID,
+                                                @SchoolName,
+                                                @SchoolType,
+                                                @Degree,
+                                                @From,
+                                                @To)";
+        public const string GetEducation = @"select * from Education order by ID desc";
+        public const string UpdateEducation = @"Update Education set 
+                                                SchoolName = @SchoolName,
+                                                SchoolType = @SchoolType,
+                                                Degree = @Degree,
+                                                From = @From,
+                                                To = @To
+                                                where ID = @ID";
+        #endregion
     }
 }
