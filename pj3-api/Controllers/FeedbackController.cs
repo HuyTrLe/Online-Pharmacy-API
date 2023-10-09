@@ -8,7 +8,7 @@ using System.Net;
 
 namespace pj3_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class FeedbackController : ControllerBase
     {
