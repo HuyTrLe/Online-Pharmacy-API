@@ -17,6 +17,12 @@ namespace pj3_api.Service.Feedback
             return result;
         }
 
+        public async Task<IEnumerable<FeedbackModel>> GetFeedbackById(int ID)
+        {
+            var result = await _feedbackRepository.Value.GetFeedbackById(ID);
+            return result;
+        }
+
         public async Task<int> InsertFeedback(FeedbackModel feedback)
         {
             var result = await _feedbackRepository.Value.InsertFeedback(feedback);

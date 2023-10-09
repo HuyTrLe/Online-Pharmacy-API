@@ -22,5 +22,7 @@
                                             @Comment,
                                             GETDATE())  
                                             SELECT @ID = SCOPE_IDENTITY()";
+
+        public const string GetFeedbackbyID = "Select * from [FeedBack] WHERE ID = @ID";
     }
 }

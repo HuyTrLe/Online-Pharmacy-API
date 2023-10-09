@@ -1,7 +1,9 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Feedback;
+using pj3_api.Model.Product;
 using pj3_api.Model.User;
+using pj3_api.Repository.Product;
 using pj3_api.Repository.User;
 using System.Data;
 
@@ -18,6 +20,14 @@ namespace pj3_api.Repository.Feedback
         public async Task<IEnumerable<FeedbackModel>> GetFeedback()
         {
             var result = await _sqlQueryDataSource.Value.Select<FeedbackModel>(FeedbackQuery.GetFeedback, null);
+            return result;
+        }
+
+        public async Task<IEnumerable<FeedbackModel>> GetFeedbackById(int ID)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<FeedbackModel>(FeedbackQuery.GetFeedbackbyID, parameters);
             return result;
         }
 

@@ -50,5 +50,23 @@ namespace pj3_api.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<HttpResultObject> GetFeedBackById(int ID)
+        {
+            try
+            {
+                var result = await _feedbackService.Value.GetFeedbackById(ID);
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
     }
 }
