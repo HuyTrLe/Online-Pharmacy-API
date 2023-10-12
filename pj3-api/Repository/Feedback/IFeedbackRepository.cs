@@ -6,5 +6,7 @@ namespace pj3_api.Repository.Feedback
     {
         Task<IEnumerable<FeedbackModel>> GetFeedback();
         Task<int> InsertFeedback(FeedbackModel feedback);
+
+        Task<IEnumerable<FeedbackModel>> GetFeedbackById(int ID);
     }
 }

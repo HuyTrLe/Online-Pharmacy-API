@@ -1,29 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using pj3_api.Model.Category;
 using pj3_api.Model;
-using pj3_api.Model.Feedback;
-using pj3_api.Service.Feedback;
-using pj3_api.Service.User;
+using pj3_api.Service.Category;
 using System.Net;
 
 namespace pj3_api.Controllers
 {
-    [Route("[controller]/[action]")]
     [ApiController]
-    public class FeedbackController : ControllerBase
+    [Route("[controller]/[action]")]
+    public class CategoryController : ControllerBase
     {
-        private readonly Lazy<IFeedbackService> _feedbackService;
-        public FeedbackController(IFeedbackService feedbackService)
+        private readonly Lazy<ICategoryService> _CategoryService;
+        public CategoryController(ICategoryService CategoryService)
         {
-            _feedbackService = new Lazy<IFeedbackService>(() => feedbackService);
+            _CategoryService = new Lazy<ICategoryService>(() => CategoryService);
         }
-
         [HttpPost]
-        public async Task<HttpResultObject> GetFeedback()
+        public async Task<HttpResultObject> GetCategory()
         {
             try
             {
-                var result = await _feedbackService.Value.GetFeedback();
+                var result = await _CategoryService.Value.GetCategory();
                 return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
             }
             catch (Exception ex)
@@ -32,13 +29,12 @@ namespace pj3_api.Controllers
             }
 
         }
-
         [HttpPost]
-        public async Task<HttpResultObject> InsertFeedback(FeedbackModel feedback)
+        public async Task<HttpResultObject> InsertCategory(CategoryModel Category)
         {
             try
             {
-                var result = await _feedbackService.Value.InsertFeedback(feedback);
+                var result = await _CategoryService.Value.InsertCategory(Category);
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -50,13 +46,29 @@ namespace pj3_api.Controllers
             }
 
         }
-
         [HttpPost]
-        public async Task<HttpResultObject> GetFeedBackById(int ID)
+        public async Task<HttpResultObject> UpdateCategory(CategoryModel Category)
         {
             try
             {
-                var result = await _feedbackService.Value.GetFeedbackById(ID);
+                var result = await _CategoryService.Value.UpdateCategory(Category);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> GetCategoryById(CategoryModel Category)
+        {
+            try
+            {
+                var result = await _CategoryService.Value.GetCategoryById(Category);
                 if (result != null)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -68,5 +80,10 @@ namespace pj3_api.Controllers
             }
 
         }
+
     }
 }
+
+    
+        
+
