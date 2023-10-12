@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
-
-using pj3_api.Service.Product;
+using pj3_api.Service.ProductImage;
 using System.Net;
 
 namespace pj3_api.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProductController : ControllerBase
+    public class ProductImageController : ControllerBase
     {
-        private readonly Lazy<IProductService> _productService;
-        public ProductController(IProductService productService)
+        private readonly Lazy<IProductImageService> _productImageService;
+        public ProductImageController(IProductImageService productImageService)
         {
-            _productService = new Lazy<IProductService>(() => productService);
+            _productImageService = new Lazy<IProductImageService>(() => productImageService);
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetProduct()
+        public async Task<HttpResultObject> GetProductImage()
         {
             try
             {
-                var result = await _productService.Value.GetProduct();
+                var result = await _productImageService.Value.GetProductImage();
                 return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
             }
             catch (Exception ex)
@@ -30,11 +29,11 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> InsertProduct(Model.Product.ProductModel product)
+        public async Task<HttpResultObject> InsertProductImage(Model.ProductImage.ProductImageModel ProductImage)
         {
             try
             {
-                var result = await _productService.Value.InsertProduct(product);
+                var result = await _productImageService.Value.InsertProductImage(ProductImage);
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -47,11 +46,11 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> UpdateProduct(Model.Product.ProductModel product)
+        public async Task<HttpResultObject> UpdateProductImage(Model.ProductImage.ProductImageModel ProductImage)
         {
             try
             {
-                var result = await _productService.Value.UpdateProduct(product);
+                var result = await _productImageService.Value.UpdateProductImage(ProductImage);
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -64,11 +63,11 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetProductByID(Model.Product.ProductModel product)
+        public async Task<HttpResultObject> GetProductImageByID(Model.ProductImage.ProductImageModel ProductImage)
         {
             try
             {
-                var result = await _productService.Value.GetProductByID(product);
+                var result = await _productImageService.Value.GetProductImageByID(ProductImage);
                 if (result != null)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else

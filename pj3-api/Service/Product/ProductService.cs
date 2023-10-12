@@ -1,10 +1,9 @@
 ﻿using pj3_api.Model.Product;
 using pj3_api.Repository.Product;
-using pj3_api.Repository.User;
 
 namespace pj3_api.Service.Product
 {
-    public class ProductService : IProducttService
+    public class ProductService : IProductService
     {
         private readonly Lazy<IProductRepository> _productRepository;
         public ProductService(IProductRepository productRepository)
@@ -24,9 +23,9 @@ namespace pj3_api.Service.Product
             return result;
         }
 
-        public async Task<IEnumerable<ProductModel>> GetProductById(ProductModel product)
+        public async Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
         {
-            var result = await _productRepository.Value.GetProductById(product);
+            var result = await _productRepository.Value.GetProductByID(product);
             return result;
         }
 

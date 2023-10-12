@@ -2,7 +2,7 @@
 
 namespace pj3_api.Service.Product
 {
-    public interface IProducttService
+    public interface IProductService
     {
         Task<IEnumerable<ProductModel>> GetProduct();
 
@@ -11,6 +11,6 @@ namespace pj3_api.Service.Product
 
         Task<int> DeleteProduct(ProductModel product);
 
-        Task<IEnumerable<ProductModel>> GetProductById(ProductModel product);
+        Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product);
     }
 }
