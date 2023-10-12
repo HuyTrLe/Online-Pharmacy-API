@@ -9,9 +9,7 @@
                                             Name,
                                             Thumbnail,
                                             Description,
-                                            CreatedDate,
-                                            UpdatedDate,
-                                            Deleted
+                                            CreatedDate
                                             )                                         
                                             VALUES
                                             (
@@ -19,20 +17,16 @@
                                             @Name,
                                             @Thumbnail,
                                             @Description,
-                                            @CreatedDate,
-                                            @UpdatedDate,
-                                            @Deleted
-                                            GETDATE())  
+                                            GETDATE()                          
+                                            )
                                             SELECT @ID = SCOPE_IDENTITY()";
         public const string UpdateProduct = @"Update [Product] SET
                                             CategoryID=@CategoryID,
                                             Name=@Name,
                                             Thumbnail=@Thumbnail,
                                             Description=@Description,
-                                            CreatedDate=@CreatedDate,
-                                            UpdatedDate=@UpdatedDate,
-                                            Deleted=@Deleted,
-                                            UpdateDate = GETDATE()
+                                            UpdatedDate=GETDATE(),
+                                            Deleted=@Deleted                                          
                                             WHERE ID = @ID";
         public const string GetProductbyID = "Select * from [Product] WHERE ID = @ID";
     }

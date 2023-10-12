@@ -1,8 +1,6 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Category;
-using pj3_api.Model.Category;
-using pj3_api.Repository.Category;
 using System.Data;
 
 namespace pj3_api.Repository.Category
@@ -30,7 +28,7 @@ namespace pj3_api.Repository.Category
         public async Task<IEnumerable<CategoryModel>> GetCategoryById(CategoryModel Category)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", Category.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", Category.ID, SqlDbType.Int, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Select<CategoryModel>(CategoryQuery.GetCategorybyID, parameters);
             return result;
         }
@@ -38,7 +36,7 @@ namespace pj3_api.Repository.Category
         public async Task<int> InsertCategory(CategoryModel Category)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", Category.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", Category.ID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@Name", Category.Name, SqlDbType.NVarChar, ParameterDirection.Input);
 
             var result = await _sqlQueryDataSource.Value.Insert(CategoryQuery.InsertCategory, parameters);
@@ -48,7 +46,7 @@ namespace pj3_api.Repository.Category
         public async Task<int> UpdateCategory(CategoryModel Category)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", Category.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", Category.ID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@Name", Category.Name, SqlDbType.NVarChar, ParameterDirection.Input);
 
             var result = await _sqlQueryDataSource.Value.Update(CategoryQuery.UpdateCategory, parameters);

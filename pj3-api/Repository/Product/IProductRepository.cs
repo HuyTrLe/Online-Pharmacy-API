@@ -1,5 +1,5 @@
-﻿using pj3_api.Model.Product;
-using pj3_api.Model;
+﻿
+using pj3_api.Model.Product;
 
 namespace pj3_api.Repository.Product
 {
@@ -12,6 +12,6 @@ namespace pj3_api.Repository.Product
 
         Task<int> DeleteProduct(ProductModel product);
 
-        Task<IEnumerable<ProductModel>> GetProductById(ProductModel product);
+        Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product);
     }
 }

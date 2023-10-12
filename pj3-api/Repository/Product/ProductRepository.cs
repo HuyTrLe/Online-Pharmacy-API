@@ -1,8 +1,7 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Product;
-using pj3_api.Model.User;
-using pj3_api.Repository.User;
+
 using System.Data;
 
 namespace pj3_api.Repository.Product
@@ -27,10 +26,10 @@ namespace pj3_api.Repository.Product
             return result;
         }
 
-        public async Task<IEnumerable<ProductModel>> GetProductById(ProductModel product)
+        public async Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Select<ProductModel>(ProductQuery.GetProductbyID, parameters);
             return result;
         }
@@ -38,8 +37,8 @@ namespace pj3_api.Repository.Product
         public async Task<int> InsertProduct(ProductModel product)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
@@ -51,12 +50,12 @@ namespace pj3_api.Repository.Product
         public async Task<int> UpdateProduct(ProductModel product)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
-
+            parameters.Add("@Deleted", product.Deleted, SqlDbType.Bit, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Update(ProductQuery.UpdateProduct, parameters);
             return result;
         }
