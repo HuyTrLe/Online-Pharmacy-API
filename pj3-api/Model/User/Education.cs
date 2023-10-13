@@ -1,4 +1,4 @@
-﻿namespace pj3_api.Model.Education
+﻿namespace pj3_api.Model.User
 {
     public class Education
     {

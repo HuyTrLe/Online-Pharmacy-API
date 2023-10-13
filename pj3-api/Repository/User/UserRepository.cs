@@ -22,11 +22,23 @@ namespace pj3_api.Repository.User
             return result;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUser()
-        {        
-            var result = await _sqlQueryDataSource.Value.Select<UserModel>(UserQuery.GetUser, null);
-            return result;
+        public async Task<UserModelResult> GetUser(int ID)
+        {
+            UserModelResult userModelResult = new UserModelResult();
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", ID, SqlDbType.Int, ParameterDirection.Input);
+            userModelResult.UserModel = await _sqlQueryDataSource.Value.First<UserModel>(UserQuery.GetUser, parameters);
+            userModelResult.Education = await GetEducation(ID);
+            return userModelResult;
         }
+        public async Task<List<Education>> GetEducation(int UserID)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", UserID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await  _sqlQueryDataSource.Value.Select<Education>(UserQuery.GetEducation, parameters);
+            return result.ToList();
+        }
+
 
         public async Task<int> InsertUser(UserModel user)
         {

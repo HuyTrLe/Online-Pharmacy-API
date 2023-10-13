@@ -17,9 +17,9 @@ namespace pj3_api.Service.User
             return result;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUser()
+        public async Task<UserModelResult> GetUser(int ID)
         {
-            var result = await _userRepository.Value.GetUser();
+            var result = await _userRepository.Value.GetUser(ID);
             return result;
         }
 

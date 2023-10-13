@@ -36,11 +36,11 @@ namespace pj3_api.Controllers
             
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetUser()
+        public async Task<HttpResultObject> GetUser(Login user)
         {
             try
             {
-                var result = await _userService.Value.GetUser();
+                var result = await _userService.Value.GetUser(user.ID);
                 return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
             }
             catch (Exception ex)

@@ -4,7 +4,8 @@
     {
         #region User
         public const string GetUserByEmailPassword = "Select * from [User] where Email = @Email and Password = @Password";
-        public const string GetUser = "Select * from [User]";
+        public const string GetUser = "Select * from [User] where ID = @ID";
+        public const string GetEducation = "Select * from [Education] where UserID = @UserID";
         public const string InsertUser = @"Insert into [User] (
                                             UserName,
                                             Email,
@@ -73,8 +74,7 @@
                                                 @SchoolType,
                                                 @Degree,
                                                 @From,
-                                                @To)";
-        public const string GetEducation = @"select * from Education order by ID desc";
+                                                @To)";        
         public const string UpdateEducation = @"Update Education set 
                                                 SchoolName = @SchoolName,
                                                 SchoolType = @SchoolType,
