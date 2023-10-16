@@ -29,7 +29,7 @@ namespace pj3_api.Service.User
             return result;
         }
 
-        public async Task<int> UpdateUser(UserModel user)
+        public async Task<int> UpdateUser(UserModelResult user)
         {
             var result = await _userRepository.Value.UpdateUser(user);
             return result;

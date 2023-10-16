@@ -31,9 +31,6 @@
                                             Email = @Email,
                                             PhoneNumber = @PhoneNumber,
                                             Address = @Address,
-                                            Password = @Password,
-                                            RoleID = @RoleID,
-                                            Education = @Education,
                                             UpdateDate = GETDATE()
                                             WHERE ID = @ID";
         #endregion
@@ -66,8 +63,8 @@
                                                 SchoolName,
                                                 SchoolType,
                                                 Degree,
-                                                From,
-                                                To)
+                                                [From],
+                                                [To])
                                                 VALUES(
                                                 @UserID,
                                                 @SchoolName,
@@ -79,8 +76,8 @@
                                                 SchoolName = @SchoolName,
                                                 SchoolType = @SchoolType,
                                                 Degree = @Degree,
-                                                From = @From,
-                                                To = @To
+                                                [From] = @From,
+                                                [To] = @To
                                                 where ID = @ID";
         #endregion
     }
