@@ -76,5 +76,17 @@ namespace pj3_api.Service.User
             var result = await _userRepository.Value.GetCareerByUserID(career);
             return result;
         }
+
+        public async Task<int> CheckPassword(ChangePassword ChangePassword)
+        {
+            var result = await _userRepository.Value.CheckPassword(ChangePassword);
+            return result;
+        }
+
+        public async Task<int> ChangePassword(ChangePassword ChangePassword)
+        {
+            var result = await _userRepository.Value.ChangePassword(ChangePassword);
+            return result;
+        }
     }
 }

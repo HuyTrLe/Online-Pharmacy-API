@@ -33,4 +33,10 @@
         public UserModel User { get; set; }
         public Career Career { get; set; }
     }
+
+    public class ChangePassword
+    {
+        public int UserID { get; set; }
+        public string Password { get; set; }
+    }
 }

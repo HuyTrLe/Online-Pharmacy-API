@@ -164,5 +164,23 @@ namespace pj3_api.Repository.User
             var result = await _sqlQueryDataSource.Value.Select<Career>(UserQuery.GetCareerByUserID, parameters);
             return result;
         }
+        public async Task<int> CheckPassword(ChangePassword ChangePassword)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", ChangePassword.UserID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@Password", ChangePassword.Password, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<UserModel>(UserQuery.CheckPassword, parameters);
+            if (result.Count() > 0)
+                return 1;
+            return 0;
+        }
+        public async Task<int> ChangePassword(ChangePassword ChangePassword)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", ChangePassword.UserID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@Password", ChangePassword.Password, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Update(UserQuery.ChangePassword, parameters);
+            return result;
+        }
     }
 }

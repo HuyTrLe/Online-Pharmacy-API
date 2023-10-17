@@ -206,6 +206,41 @@ namespace pj3_api.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<HttpResultObject> CheckPassword(ChangePassword changePassword)
+        {
+            try
+            {
+                var result = await _userService.Value.CheckPassword(changePassword);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> ChangePassword(ChangePassword changePassword)
+        {
+            try
+            {
+                var result = await _userService.Value.ChangePassword(changePassword);
+                if (result != null)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
         [HttpPost]
         public void Sendmail(Model.Mail mailService)
         {

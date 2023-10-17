@@ -11,6 +11,8 @@ namespace pj3_api.Service.User
 
         Task<int> InsertUser(UserModel user);
         Task<int> UpdateUser(UserModelResult user);
+        Task<int> CheckPassword(ChangePassword ChangePassword);
+        Task<int> ChangePassword(ChangePassword ChangePassword);
         Task<int> InsertRole(Role role);
         Task<IEnumerable<Role>> GetRole();
         Task<int> UpdateRole(Role role);
