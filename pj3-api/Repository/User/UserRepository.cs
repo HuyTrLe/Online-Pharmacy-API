@@ -48,7 +48,7 @@ namespace pj3_api.Repository.User
             parameters.Add("@PhoneNumber", user.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Address", user.Address, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Password", user.Password, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@RoleID", user.RoleID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@RoleID", 2/*User*/, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@ID", user.ID, SqlDbType.Int, ParameterDirection.Output);
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertUser, parameters);
             int newID = parameters.Get<int>("@ID");
