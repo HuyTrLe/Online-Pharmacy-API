@@ -22,11 +22,23 @@ namespace pj3_api.Repository.User
             return result;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUser()
-        {        
-            var result = await _sqlQueryDataSource.Value.Select<UserModel>(UserQuery.GetUser, null);
-            return result;
+        public async Task<UserModelResult> GetUser(int ID)
+        {
+            UserModelResult userModelResult = new UserModelResult();
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", ID, SqlDbType.Int, ParameterDirection.Input);
+            userModelResult.UserModel = await _sqlQueryDataSource.Value.First<UserModel>(UserQuery.GetUser, parameters);
+            userModelResult.Education = await GetEducation(ID);
+            return userModelResult;
         }
+        public async Task<List<Education>> GetEducation(int UserID)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", UserID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await  _sqlQueryDataSource.Value.Select<Education>(UserQuery.GetEducation, parameters);
+            return result.ToList();
+        }
+
 
         public async Task<int> InsertUser(UserModel user)
         {
@@ -36,27 +48,65 @@ namespace pj3_api.Repository.User
             parameters.Add("@PhoneNumber", user.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Address", user.Address, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Password", user.Password, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@RoleID", user.RoleID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Education", user.Education, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@RoleID", 2/*User*/, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@ID", user.ID, SqlDbType.Int, ParameterDirection.Output);
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertUser, parameters);
             int newID = parameters.Get<int>("@ID");
             return newID;
         }
 
-        public async Task<int> UpdateUser(UserModel user)
+        public async Task<int> UpdateUser(UserModelResult user)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@UserName", user.UserName, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Email", user.Email, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@PhoneNumber", user.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Address", user.Address, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Password", user.Password, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@RoleID", user.RoleID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Education", user.Education, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@ID", user.ID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@UserName", user.UserModel.UserName, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@Email", user.UserModel.Email, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@PhoneNumber", user.UserModel.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@Address", user.UserModel.Address, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@Password", user.UserModel.Password, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", user.UserModel.ID, SqlDbType.Int, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.UpdateUserByID, parameters);
+            await UpdateUserEducation(user);
             return result;
+        }
+
+
+        public async Task<int> UpdateUserEducation(UserModelResult user)
+        {
+            try
+            {
+                int result = 0;
+                foreach (var item in user.Education)
+                {
+                    if (item.ID != 0)
+                    {
+                        MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                        parameters.Add("@SchoolName", item.SchoolName, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@SchoolType", item.SchoolType, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@Degree", item.Degree, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@From", item.From, SqlDbType.DateTime, ParameterDirection.Input);
+                        parameters.Add("@To", item.To, SqlDbType.DateTime, ParameterDirection.Input);
+                        parameters.Add("@ID", item.ID, SqlDbType.Int, ParameterDirection.Input);
+                        result = await _sqlQueryDataSource.Value.Update(UserQuery.UpdateEducation, parameters);
+                    }
+                    else
+                    {
+                        MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                        parameters.Add("@UserID", item.UserID, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@SchoolName", item.SchoolName, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@SchoolType", item.SchoolType, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@Degree", item.Degree, SqlDbType.NVarChar, ParameterDirection.Input);
+                        parameters.Add("@From", item.From, SqlDbType.DateTime, ParameterDirection.Input);
+                        parameters.Add("@To", item.To, SqlDbType.DateTime, ParameterDirection.Input);
+                        result = await _sqlQueryDataSource.Value.Update(UserQuery.InsertEducation, parameters);
+                    }
+                }
+
+                return result;
+            }
+            catch(Exception ex) {
+                return 0;
+            }
+            
         }
 
         public async Task<int> InsertRole(Role role)

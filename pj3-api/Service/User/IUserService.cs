@@ -7,10 +7,10 @@ namespace pj3_api.Service.User
     {
         Task<UserModel> Login(Login user);
 
-        Task<IEnumerable<UserModel>> GetUser();
+        Task<UserModelResult> GetUser(int ID);
 
         Task<int> InsertUser(UserModel user);
-        Task<int> UpdateUser(UserModel user);
+        Task<int> UpdateUser(UserModelResult user);
         Task<int> InsertRole(Role role);
         Task<IEnumerable<Role>> GetRole();
         Task<int> UpdateRole(Role role);

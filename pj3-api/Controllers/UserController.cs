@@ -36,11 +36,11 @@ namespace pj3_api.Controllers
             
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetUser()
+        public async Task<HttpResultObject> GetUser(Login user)
         {
             try
             {
-                var result = await _userService.Value.GetUser();
+                var result = await _userService.Value.GetUser(user.ID);
                 return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
             }
             catch (Exception ex)
@@ -67,11 +67,11 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> UpdateUser(UserModel user)
+        public async Task<HttpResultObject> UpdateUser(UserModelResult userModelResult)
         {
             try
             {
-                var result = await _userService.Value.UpdateUser(user);
+                var result = await _userService.Value.UpdateUser(userModelResult);
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -79,7 +79,7 @@ namespace pj3_api.Controllers
             }
             catch (Exception ex)
             {
-                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = ex.Message };
             }
 
         }

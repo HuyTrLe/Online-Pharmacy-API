@@ -17,9 +17,9 @@ namespace pj3_api.Service.User
             return result;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUser()
+        public async Task<UserModelResult> GetUser(int ID)
         {
-            var result = await _userRepository.Value.GetUser();
+            var result = await _userRepository.Value.GetUser(ID);
             return result;
         }
 
@@ -29,7 +29,7 @@ namespace pj3_api.Service.User
             return result;
         }
 
-        public async Task<int> UpdateUser(UserModel user)
+        public async Task<int> UpdateUser(UserModelResult user)
         {
             var result = await _userRepository.Value.UpdateUser(user);
             return result;
