@@ -152,61 +152,6 @@ namespace pj3_api.Controllers
             }
 
         }
-
-        [HttpPost]
-        public async Task<HttpResultObject> GetCareer()
-        {
-            try
-            {
-                var result = await _userService.Value.GetCareer();
-                if (result != null)
-                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
-                else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-            catch (Exception ex)
-            {
-                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-
-        }
-
-        [HttpPost]
-        public async Task<HttpResultObject> UpdatetCareer(Career career)
-        {
-            try
-            {
-                var result = await _userService.Value.UpdateCareer(career);
-                if (result != null)
-                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
-                else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-            catch (Exception ex)
-            {
-                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-
-        }
-
-        [HttpPost]
-        public async Task<HttpResultObject> GetCareerByUserID(Career career)
-        {
-            try
-            {
-                var result = await _userService.Value.GetCareerByUserID(career);
-                if (result != null)
-                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
-                else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-            catch (Exception ex)
-            {
-                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-
-        }
-
         [HttpPost]
         public async Task<HttpResultObject> CheckPassword(ChangePassword changePassword)
         {
@@ -225,12 +170,29 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
+        public async Task<HttpResultObject> UpdateFilename(UploadFile uploadFile)
+        {
+            try
+            {
+                var result = await _userService.Value.UpdateFilename(uploadFile);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
         public async Task<HttpResultObject> ChangePassword(ChangePassword changePassword)
         {
             try
             {
                 var result = await _userService.Value.ChangePassword(changePassword);
-                if (result != null)
+                if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
                     return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
@@ -242,7 +204,24 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public void Sendmail(Model.Mail mailService)
+        public async Task<HttpResultObject> DeleteEducation(DeleteEducation deleteEducation)
+        {
+            try
+            {
+                var result = await _userService.Value.DeleteEducation(deleteEducation);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+        [HttpPost]
+        public void Sendmail(MailParam mailService)
         {
             mailService.Attachments = @"D:\5337.xml";
             _mailService.Value.SendMail(mailService);

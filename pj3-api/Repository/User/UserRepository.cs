@@ -35,7 +35,7 @@ namespace pj3_api.Repository.User
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
             parameters.Add("@UserID", UserID, SqlDbType.Int, ParameterDirection.Input);
-            var result = await  _sqlQueryDataSource.Value.Select<Education>(UserQuery.GetEducation, parameters);
+            var result = await _sqlQueryDataSource.Value.Select<Education>(UserQuery.GetEducation, parameters);
             return result.ToList();
         }
 
@@ -62,7 +62,7 @@ namespace pj3_api.Repository.User
             parameters.Add("@Email", user.UserModel.Email, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@PhoneNumber", user.UserModel.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@Address", user.UserModel.Address, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Password", user.UserModel.Password, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@FileName", user.UserModel.FileName, SqlDbType.NVarChar, ParameterDirection.Input);
             parameters.Add("@ID", user.UserModel.ID, SqlDbType.Int, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.UpdateUserByID, parameters);
             await UpdateUserEducation(user);
@@ -103,10 +103,11 @@ namespace pj3_api.Repository.User
 
                 return result;
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 return 0;
             }
-            
+
         }
 
         public async Task<int> InsertRole(Role role)
@@ -115,7 +116,7 @@ namespace pj3_api.Repository.User
             parameters.Add("@Name", role.Name, SqlDbType.NVarChar, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertRole, parameters);
             return result;
-            
+
         }
 
         public async Task<IEnumerable<Role>> GetRole()
@@ -133,37 +134,16 @@ namespace pj3_api.Repository.User
             return result;
         }
 
-        public async Task<IEnumerable<Career>> GetCareer()
+        public async Task<int> Insert(Role role)
         {
-            var result = await _sqlQueryDataSource.Value.Select<Career>(UserQuery.GetCareer, null) ;
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@Name", role.Name, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", role.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.UpdateRole, parameters);
             return result;
         }
 
-        public async Task<int> InsertCareer(Career career)
-        {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@UserID", career.UserID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@File", career.File, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Status", career.Status, SqlDbType.NVarChar, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertCareer, parameters);
-            return result;
-        }
 
-        public async Task<int> UpdateCareer(Career career)
-        {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@Status", career.Status, SqlDbType.NVarChar, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Update(UserQuery.UpdateCareer, parameters);
-            return result;
-        }
-
-        public async Task<IEnumerable<Career>> GetCareerByUserID(Career career)
-        {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@UserID", career.UserID, SqlDbType.NVarChar, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Select<Career>(UserQuery.GetCareerByUserID, parameters);
-            return result;
-        }
         public async Task<int> CheckPassword(ChangePassword ChangePassword)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
@@ -181,6 +161,26 @@ namespace pj3_api.Repository.User
             parameters.Add("@Password", ChangePassword.Password, SqlDbType.NVarChar, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.Update(UserQuery.ChangePassword, parameters);
             return result;
+        }
+
+        public async Task<int> UpdateFilename(UploadFile user)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", user.UserID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@FileName", user.Filename, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Update(UserQuery.UpdateFilename, parameters);
+            return result;
+        }
+
+        public async Task<int> DeleteEducation(DeleteEducation deleteEducation)
+        {
+            foreach (var item in deleteEducation.listID)
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@ID", item, SqlDbType.Int, ParameterDirection.Input);
+                await _sqlQueryDataSource.Value.Update(UserQuery.DeleteEducation, parameters);
+            }
+            return 1;
         }
     }
 }

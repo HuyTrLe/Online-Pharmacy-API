@@ -35,6 +35,10 @@
         public const string ChangePassword = @"Update [User] Set
                                                 Password = @Password
                                                 Where ID = @UserID";
+        public const string UpdateFilename = @"Update [User] Set
+                                                FileName = @FileName
+                                                Where ID = @UserID";
+        public const string DeleteEducation = @"DELETE FROM Education where ID = @ID";
         #endregion
 
         #region Role

@@ -1,6 +1,6 @@
 ﻿namespace pj3_api.Model
 {
-    public class Mail
+    public class MailParam
     {
         public string ToAddress { get; set; }
         public string Subject { get; set; }
