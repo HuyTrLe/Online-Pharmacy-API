@@ -15,7 +15,7 @@ namespace pj3_api.Controllers
         {
             _CategoryService = new Lazy<ICategoryService>(() => CategoryService);
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<HttpResultObject> GetCategory()
         {
             try
