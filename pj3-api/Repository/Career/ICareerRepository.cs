@@ -7,9 +7,10 @@ namespace pj3_api.Repository.Career
     public interface ICareerRepository
     {
         Task<IEnumerable<CareerModel>> GetCareer();
-
+        Task<IEnumerable<CareerModel>> GetCareersByUserID(CareerGet CareerGet);
+        
         Task<CareerModel> GetCareerByID(CareerGet CareerGet);
-
+        Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet);
         Task<int> InsertCareer(CareerModel CareerModel);
         Task<int> UpdateCareer(CareerModel CareerModel);
         Task<int> DeleteCareer(CareerModel CareerModel);

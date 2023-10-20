@@ -8,7 +8,10 @@ namespace pj3_api.Service.User
     {
         Task<IEnumerable<CareerModel>> GetCareer();
 
+        Task<IEnumerable<CareerModel>> GetCareersByUserID(CareerGet CareerGet);
+
         Task<CareerModel> GetCareerByID(CareerGet CareerGet);
+        Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet);
 
         Task<int> InsertCareer(CareerModel CareerModel);
         Task<int> UpdateCareer(CareerModel CareerModel);

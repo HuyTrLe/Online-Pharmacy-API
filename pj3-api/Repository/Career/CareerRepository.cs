@@ -116,6 +116,21 @@ namespace pj3_api.Repository.Career
             return result;
         }
 
-     
+        public async Task<IEnumerable<CareerModel>> GetCareersByUserID(CareerGet CareerGet)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", CareerGet.UserID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<CareerModel>(CareerQuery.GetCareersByUserID, parameters);
+            return result;
+        }
+
+        public async Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@UserID", CareerGet.UserID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@ID", CareerGet.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.First<CareerModel>(CareerQuery.GetCareersDetailByUserID, parameters);
+            return result;
+        }
     }
 }

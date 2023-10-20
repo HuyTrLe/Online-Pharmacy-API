@@ -45,6 +45,18 @@ namespace pj3_api.Controllers
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
         [HttpPost]
+        public async Task<HttpResultObject> GetCareersByUserID(CareerGet CareerGet)
+        {
+            var result = await _careerService.Value.GetCareersByUserID(CareerGet);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> GetCareerDetailByUserID(CareerGet CareerGet)
+        {
+            var result = await _careerService.Value.GetCareerDetailByUserID(CareerGet);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
+        [HttpPost]
         public async Task<HttpResultObject> InsertCareerJob(CareerJobModel CareerJobModel)
         {
             var result = await _careerService.Value.InsertCareerJob(CareerJobModel);

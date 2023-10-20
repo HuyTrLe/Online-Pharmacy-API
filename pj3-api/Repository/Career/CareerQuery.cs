@@ -63,6 +63,12 @@
         public const string UpdateCareerJob = @"Update CAREERJOB set
                                             Status = @Status
                                             Where ID = @ID";
+        public const string GetCareersByUserID = @"select ca.*,caj.Status as StatusJob 
+                                                    from Career ca
+                                                    left join CareerJob caj on ca.ID = caj.JobID and caj.UserID = @UserID";
+        public const string GetCareersDetailByUserID = @"select ca.*,caj.Status as StatusJob 
+                                                    from Career ca
+                                                    left join CareerJob caj on ca.ID = caj.JobID AND caj.UserID = @UserID)";
         #endregion
 
 

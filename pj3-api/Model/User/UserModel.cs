@@ -49,4 +49,8 @@
     {
         public List<string> listID { get; set; }
     }
+    public class UserGet
+    {
+        public string UserID { get; set; }
+    }
 }

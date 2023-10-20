@@ -32,9 +32,21 @@ namespace pj3_api.Service.User
             return result;
         }
 
+        public async Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet)
+        {
+            var result = await _careerRepository.Value.GetCareerDetailByUserID(CareerGet);
+            return result;
+        }
+
         public async Task<IEnumerable<CareerJobModel>> GetCareerJobWithUser(CareerJobGet CareerJobGet)
         {
             var result = await _careerRepository.Value.GetCareerJobWithUser(CareerJobGet);
+            return result;
+        }
+
+        public async Task<IEnumerable<CareerModel>> GetCareersByUserID(CareerGet CareerGet)
+        {
+            var result = await _careerRepository.Value.GetCareersByUserID(CareerGet);
             return result;
         }
 
