@@ -49,6 +49,20 @@ namespace pj3_api.Controllers
             }
 
         }
+        [HttpGet]
+        public async Task<HttpResultObject> GetAllUser()
+        {
+            try
+            {
+                var result = await _userService.Value.GetAllUser();
+                return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
         [HttpPost]
         public async Task<HttpResultObject> InsertUser(UserModel user)
         {

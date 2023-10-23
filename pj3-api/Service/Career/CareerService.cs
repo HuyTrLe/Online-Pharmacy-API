@@ -38,6 +38,12 @@ namespace pj3_api.Service.User
             return result;
         }
 
+        public async Task<IEnumerable<CareerJobModel>> GetCareerJob()
+        {
+            var result = await _careerRepository.Value.GetCareerJob();
+            return result;
+        }
+
         public async Task<IEnumerable<CareerJobModel>> GetCareerJobWithUser(CareerJobGet CareerJobGet)
         {
             var result = await _careerRepository.Value.GetCareerJobWithUser(CareerJobGet);

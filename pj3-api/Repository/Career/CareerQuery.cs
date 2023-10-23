@@ -15,7 +15,8 @@
                                             Position,
                                             Price,
                                             Skill,
-                                            Status
+                                            Status,
+                                            CREATEDDATE
                                             ) VALUES(
                                             @Title,
                                             @ShortDescription,
@@ -25,6 +26,7 @@
                                             @Position,
                                             @Price,
                                             @Skill,
+                                            GETDATE()
                                             )
                                              SELECT @ID = SCOPE_IDENTITY();
                                             ";
@@ -37,7 +39,8 @@
                                             Position = @Position,
                                             Price = @Price,
                                             Skill = @Skill,
-                                            Status = @Status
+                                            Status = @Status,
+                                            UpdateDate = GETDATE()
                                             Where ID = @ID
                                             ";
         public const string UpdateStatus = @"Update career set

@@ -37,6 +37,12 @@ namespace pj3_api.Controllers
             var result = await _careerService.Value.GetCareerByID(careerGet);
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
+        [HttpGet]
+        public async Task<HttpResultObject> GetCareerJob( )
+        {
+            var result = await _careerService.Value.GetCareerJob();
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
 
         [HttpPost]
         public async Task<HttpResultObject> GetCareerJobWithUser(CareerJobGet CareerJobGet)
@@ -48,6 +54,18 @@ namespace pj3_api.Controllers
         public async Task<HttpResultObject> GetCareersByUserID(CareerGet CareerGet)
         {
             var result = await _careerService.Value.GetCareersByUserID(CareerGet);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> InsertCareer(CareerModel CareerGet)
+        {
+            var result = await _careerService.Value.InsertCareer(CareerGet);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
+        [HttpPost]
+        public async Task<HttpResultObject> UpdateCareer(CareerModel CareerModel)
+        {
+            var result = await _careerService.Value.UpdateCareer(CareerModel);
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
         [HttpPost]

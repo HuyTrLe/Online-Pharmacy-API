@@ -59,19 +59,27 @@ namespace pj3_api.Repository.Career
 
         public async Task<int> UpdateCareer(CareerModel CareerModel)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@Title", CareerModel.Title, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@ShortDescription", CareerModel.ShortDescription, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Description", CareerModel.Description, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@TimeStart", CareerModel.TimeStart, SqlDbType.DateTime, ParameterDirection.Input);
-            parameters.Add("@TimeEnd", CareerModel.TimeEnd, SqlDbType.DateTime, ParameterDirection.Input);
-            parameters.Add("@Position", CareerModel.Position, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Price", CareerModel.Price, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Skill", CareerModel.Skill, SqlDbType.VarChar, ParameterDirection.Input);
-            parameters.Add("@Status", CareerModel.Status, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@ID", CareerModel.ID, SqlDbType.Int, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Update(CareerQuery.UpdateCareer, parameters);
-            return result;
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@Title", CareerModel.Title, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@ShortDescription", CareerModel.ShortDescription, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Description", CareerModel.Description, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@TimeStart", CareerModel.TimeStart, SqlDbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@TimeEnd", CareerModel.TimeEnd, SqlDbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@Position", CareerModel.Position, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Price", CareerModel.Price, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@Skill", CareerModel.Skill, SqlDbType.VarChar, ParameterDirection.Input);
+                parameters.Add("@Status", CareerModel.Status, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@ID", CareerModel.ID, SqlDbType.Int, ParameterDirection.Input);
+                var result = await _sqlQueryDataSource.Value.Update(CareerQuery.UpdateCareer, parameters);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+           
         }
 
         public async Task<int> DeleteCareer(CareerModel CareerModel)

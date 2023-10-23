@@ -5,6 +5,7 @@
         #region User
         public const string GetUserByEmailPassword = "Select * from [User] where Email = @Email and Password = @Password";
         public const string GetUser = "Select * from [User] where ID = @ID";
+        public const string GetAllUser = "Select * from [User]";
         public const string GetEducation = "Select * from [Education] where UserID = @UserID";
         public const string InsertUser = @"Insert into [User] (
                                             UserName,

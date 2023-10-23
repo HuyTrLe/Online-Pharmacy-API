@@ -1,6 +1,7 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.User;
+using System.Collections;
 using System.Data;
 
 namespace pj3_api.Repository.User
@@ -181,6 +182,20 @@ namespace pj3_api.Repository.User
                 await _sqlQueryDataSource.Value.Update(UserQuery.DeleteEducation, parameters);
             }
             return 1;
+        }
+
+        public async Task<IEnumerable<UserModelResult>> GetAllUser()
+        {
+            IEnumerable<UserModelResult> list = new List<UserModelResult>();
+            var listUser = await _sqlQueryDataSource.Value.Select<UserModel>(UserQuery.GetAllUser, null);
+            foreach(var item in listUser)
+            {
+                UserModelResult userModelResult = new UserModelResult();
+                userModelResult.UserModel = item;
+                userModelResult.Education = await GetEducation(item.ID);
+                list = list.Concat(new[] { userModelResult });
+            }         
+            return list;
         }
     }
 }
