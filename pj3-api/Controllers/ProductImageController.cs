@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
+using pj3_api.Model.ProductImage;
 using pj3_api.Service.ProductImage;
 using System.Net;
 
@@ -14,7 +15,7 @@ namespace pj3_api.Controllers
         {
             _productImageService = new Lazy<IProductImageService>(() => productImageService);
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<HttpResultObject> GetProductImage()
         {
             try
@@ -29,7 +30,7 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> InsertProductImage(Model.ProductImage.ProductImageModel ProductImage)
+        public async Task<HttpResultObject> InsertProductImage(ProductImageModel ProductImage)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> UpdateProductImage(Model.ProductImage.ProductImageModel ProductImage)
+        public async Task<HttpResultObject> UpdateProductImage(ProductImageModel ProductImage)
         {
             try
             {
@@ -63,7 +64,7 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetProductImageByID(Model.ProductImage.ProductImageModel ProductImage)
+        public async Task<HttpResultObject> GetProductImageByID(ProductImageModel ProductImage)
         {
             try
             {

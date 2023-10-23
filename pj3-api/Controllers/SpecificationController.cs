@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
+using pj3_api.Model.Specification;
 using pj3_api.Service.Specification;
 using System.Net;
 
@@ -62,12 +63,14 @@ namespace pj3_api.Controllers
             }
 
         }
-        [HttpPost]
-        public async Task<HttpResultObject> GetSpecificationById(Model.Specification.SpecificationModel Specification)
+        [HttpGet]
+        [Route("{ID:int}")] // Define a route constraint for the ID parameter
+        public async Task<HttpResultObject> GetSpecificationById(int ID)
         {
             try
             {
-                var result = await _SpecificationService.Value.GetSpecificationByID(Specification);
+                SpecificationModel specification = new SpecificationModel { ID = ID }; // Create a SpecificationModel instance with the ID
+                var result = await _SpecificationService.Value.GetSpecificationByID(specification);
                 if (result != null)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
@@ -77,7 +80,6 @@ namespace pj3_api.Controllers
             {
                 return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
             }
-
         }
 
     }

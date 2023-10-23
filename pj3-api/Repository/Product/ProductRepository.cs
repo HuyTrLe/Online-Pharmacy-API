@@ -36,28 +36,49 @@ namespace pj3_api.Repository.Product
 
         public async Task<int> InsertProduct(ProductModel product)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Output);
 
-            var result = await _sqlQueryDataSource.Value.Insert(ProductQuery.InsertProduct, parameters);
-            return result;
+                var result = await _sqlQueryDataSource.Value.Insert(ProductQuery.InsertProduct, parameters);
+                int newID = parameters.Get<int>("@ID");
+                return newID;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+                return 0;
+            }
+            
         }
 
         public async Task<int> UpdateProduct(ProductModel product)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Deleted", product.Deleted, SqlDbType.Bit, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Update(ProductQuery.UpdateProduct, parameters);
-            return result;
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@Name", product.Name, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Thumbnail", product.Thumbnail, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Description", product.Description, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Deleted", product.Deleted, SqlDbType.Bit, ParameterDirection.Input);
+                parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+
+                var result = await _sqlQueryDataSource.Value.Update(ProductQuery.UpdateProduct, parameters);
+                int newID = parameters.Get<int>("@ID");
+
+                return newID;
+
+            } catch (Exception ex)
+            {
+                throw ex;
+                return 0;
+            }
         }
     }
 }
