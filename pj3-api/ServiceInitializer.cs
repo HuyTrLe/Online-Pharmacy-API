@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using pj3_api.Model;
+using pj3_api.Repository.Career;
 using pj3_api.Repository.Category;
 using pj3_api.Repository.Feedback;
 using pj3_api.Repository.Home;
@@ -44,7 +45,7 @@ namespace pj3_api
             services.AddSingleton<IProductSpecificationService, ProductSpecificationService>();
             services.AddSingleton<IProductImageService, ProductImageService>();
             services.AddSingleton<ISpecificationService, SpecificationService>();
-
+            services.AddSingleton<ICareerService, CareerService>();
 
             //services.AddSingleton<IEmployeeManagerService, EmployeeManagerService>();
             //services.AddSingleton<ILoginService, LoginService>();
@@ -58,8 +59,7 @@ namespace pj3_api
             services.AddTransient<IProductSpecificationRepository, ProductSpecificationRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<ISpecificationRepository, SpecificationRepository>();
-
-
+            services.AddTransient<ICareerRepository, CareerRepository>();
 
             //services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             //services.AddTransient<IEmployeeManagerRepository, EmployeeManagerRepository>();

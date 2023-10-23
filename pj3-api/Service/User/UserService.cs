@@ -53,27 +53,28 @@ namespace pj3_api.Service.User
             return result;
         }
 
-        public async Task<IEnumerable<Career>> GetCareer()
+       
+        public async Task<int> CheckPassword(ChangePassword ChangePassword)
         {
-            var result = await _userRepository.Value.GetCareer();
+            var result = await _userRepository.Value.CheckPassword(ChangePassword);
             return result;
         }
 
-        public async Task<int> InsertCareer(Career career)
+        public async Task<int> ChangePassword(ChangePassword ChangePassword)
         {
-            var result = await _userRepository.Value.InsertCareer(career);
+            var result = await _userRepository.Value.ChangePassword(ChangePassword);
             return result;
         }
 
-        public async Task<int> UpdateCareer(Career career)
+        public async Task<int> UpdateFilename(UploadFile user)
         {
-            var result = await _userRepository.Value.UpdateCareer(career);
+            var result = await _userRepository.Value.UpdateFilename(user);
             return result;
         }
 
-        public async Task<IEnumerable<Career>> GetCareerByUserID(Career career)
+        public async Task<int> DeleteEducation(DeleteEducation deleteEducation)
         {
-            var result = await _userRepository.Value.GetCareerByUserID(career);
+            var result = await _userRepository.Value.DeleteEducation(deleteEducation);
             return result;
         }
     }

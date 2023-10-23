@@ -7,19 +7,19 @@ namespace pj3_api.Service.Mail
 {
     public class MailServiceApp : IMailService
     {
-        private readonly Lazy<AppSettings> _appService;
+        private readonly Lazy<AppSettings> _appSetting;
         public MailServiceApp(AppSettings appSettings) {
-           _appService = new Lazy<AppSettings>(() => appSettings);
+            _appSetting = new Lazy<AppSettings>(() => appSettings);
         }
 
-        public async Task<int> SendMail(Model.Mail mailService)
+        public async Task<int> SendMail(MailParam mailService)
         {
             try
             {
-            string smtpServer = _appService.Value.MailService.SMTP;
-            int smtpPort = _appService.Value.MailService.Port; // Cổng SMTP của Gmail
-            string smtpUsername = _appService.Value.MailService.UserName; // Điền địa chỉ email Gmail của bạn
-            string smtpPassword = _appService.Value.MailService.Password; // Điền mật khẩu Gmail của bạn
+            string smtpServer = _appSetting.Value.MailService.SMTP;
+            int smtpPort = _appSetting.Value.MailService.Port; // Cổng SMTP của Gmail
+            string smtpUsername = _appSetting.Value.MailService.UserName; // Điền địa chỉ email Gmail của bạn
+            string smtpPassword = _appSetting.Value.MailService.Password; // Điền mật khẩu Gmail của bạn
 
             // Tạo đối tượng SmtpClient
             SmtpClient client = new SmtpClient(smtpServer);
