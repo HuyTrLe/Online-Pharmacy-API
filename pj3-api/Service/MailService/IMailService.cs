@@ -4,7 +4,7 @@ namespace pj3_api.Service.Mail
 {
     public interface IMailService
     {
-        Task<int> SendMail(Model.Mail mailService);
+        Task<int> SendMail(MailParam mailService);
       
     }
 }

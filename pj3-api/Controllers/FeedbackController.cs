@@ -18,7 +18,7 @@ namespace pj3_api.Controllers
             _feedbackService = new Lazy<IFeedbackService>(() => feedbackService);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<HttpResultObject> GetFeedback()
         {
             try
@@ -51,7 +51,7 @@ namespace pj3_api.Controllers
 
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<HttpResultObject> GetFeedBackById(int ID)
         {
             try

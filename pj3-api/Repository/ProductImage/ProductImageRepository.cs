@@ -1,6 +1,7 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.ProductImage;
+using pj3_api.Repository.Feedback;
 using System.Data;
 
 namespace pj3_api.Repository.ProductImage
@@ -41,13 +42,14 @@ namespace pj3_api.Repository.ProductImage
         public async Task<int> InsertProductImage(ProductImageModel ProductImage)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", ProductImage.ID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@ProductID", ProductImage.ProductID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@Image", ProductImage.Image, SqlDbType.NVarChar, ParameterDirection.Input);
+            parameters.Add("@ID", ProductImage.ID, SqlDbType.Int, ParameterDirection.Output);
 
 
             var result = await _sqlQueryDataSource.Value.Insert(ProductImageQuery.InsertProductImage, parameters);
-            return result;
+            int newID = parameters.Get<int>("@ID");
+            return newID;
         }
 
        
