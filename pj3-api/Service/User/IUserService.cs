@@ -8,9 +8,10 @@ namespace pj3_api.Service.User
         Task<UserModel> Login(Login user);
 
         Task<UserModelResult> GetUser(int ID);
-
+        Task<IEnumerable<UserModelResult>> GetAllUser();
         Task<int> InsertUser(UserModel user);
         Task<int> UpdateUser(UserModelResult user);
+        Task<int> UpdateRoleUser(UserModelUpdateRole user);
         Task<int> CheckPassword(ChangePassword ChangePassword);
         Task<int> ChangePassword(ChangePassword ChangePassword);
         Task<int> UpdateFilename(UploadFile user);

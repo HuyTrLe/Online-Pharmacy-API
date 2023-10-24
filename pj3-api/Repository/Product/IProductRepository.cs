@@ -15,4 +15,8 @@ namespace pj3_api.Repository.Product
         Task<int> CheckUniqueByName(ProductModel product);
         Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product);
     }
+        Task<ProductModel> GetProductByID(ProductGet product);
+
+		Task<IEnumerable<ProductModel>> GetProductByCategoryID(ProductGet product);
+	}
 }

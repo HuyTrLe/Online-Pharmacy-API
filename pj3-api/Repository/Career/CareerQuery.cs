@@ -4,7 +4,9 @@
     {
         #region User
        
-        public const string GetCareer = @"select * from career";
+        public const string GetCareer = @"select * from career where GETDATE() between TimeStart and TimeEnd and status != 1";
+        public const string GetAllCareer = @"select * from career";
+        public const string GetUser = "Select * from [User] where ID = @UserID";
         public const string GetCareerByID = @"select * from career where ID = @ID";
         public const string InsertCareer = @"INSERT INTO CAREER(
                                             Title,
@@ -15,7 +17,8 @@
                                             Position,
                                             Price,
                                             Skill,
-                                            Status
+                                            Status,
+                                            CREATEDDATE
                                             ) VALUES(
                                             @Title,
                                             @ShortDescription,
@@ -25,6 +28,8 @@
                                             @Position,
                                             @Price,
                                             @Skill,
+                                            @Status,
+                                            GETDATE()
                                             )
                                              SELECT @ID = SCOPE_IDENTITY();
                                             ";
@@ -37,7 +42,8 @@
                                             Position = @Position,
                                             Price = @Price,
                                             Skill = @Skill,
-                                            Status = @Status
+                                            Status = @Status,
+                                            UpdateDate = GETDATE()
                                             Where ID = @ID
                                             ";
         public const string UpdateStatus = @"Update career set
@@ -46,6 +52,7 @@
 
 
         public const string SelectCareerJob = @"select * from CAREERJOB";
+       // public const string SelectCareerJobAdmin = @"select * from CAREERJOB";
 
         public const string InsertCareerJob = @"INSERT INTO CAREERJOB(
                                             JobID,
@@ -65,10 +72,12 @@
                                             Where ID = @ID";
         public const string GetCareersByUserID = @"select ca.*,caj.Status as StatusJob 
                                                     from Career ca
-                                                    left join CareerJob caj on ca.ID = caj.JobID and caj.UserID = @UserID";
+                                                    left join CareerJob caj on ca.ID = caj.JobID and caj.UserID = @UserID
+                                                    where GETDATE() between ca.TimeStart and ca.TimeEnd and ca.status != 1";
         public const string GetCareersDetailByUserID = @"select ca.*,caj.Status as StatusJob 
                                                     from Career ca
-                                                    left join CareerJob caj on ca.ID = caj.JobID AND caj.UserID = @UserID)";
+                                                    left join CareerJob caj on ca.ID = caj.JobID AND caj.UserID = @UserID
+                                                    where ca.ID = @ID";
         #endregion
 
 

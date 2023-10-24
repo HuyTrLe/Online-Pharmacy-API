@@ -33,13 +33,6 @@ namespace pj3_api.Repository.Product
             return result;
         }
 
-        public async Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
-        {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Select<ProductModel>(ProductQuery.GetProductbyID, parameters);
-            return result;
-        }
 
         public async Task<int> InsertProduct(ProductModel product)
         {
@@ -56,12 +49,12 @@ namespace pj3_api.Repository.Product
                 int newID = parameters.Get<int>("@ID");
                 return newID;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
                 return 0;
             }
-            
+
         }
 
         public async Task<int> UpdateProduct(ProductModel product)
@@ -81,11 +74,34 @@ namespace pj3_api.Repository.Product
 
                 return newID;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
                 return 0;
             }
         }
+
+
+
+
+        public async Task<ProductModel> GetProductByID(ProductGet product)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.First<ProductModel>(ProductQuery.GetProductbyID, parameters);
+            return result;
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetProductByCategoryID(ProductGet product)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@CategoryID", product.CategoryID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<ProductModel>(ProductQuery.GetProductbyCategoryID, parameters);
+            return result;
+        }
+
     }
 }
+
+

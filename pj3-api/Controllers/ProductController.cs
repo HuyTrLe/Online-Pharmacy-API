@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
-
+using pj3_api.Model.Product;
 using pj3_api.Service.Product;
 using System.Net;
 
@@ -64,7 +64,7 @@ namespace pj3_api.Controllers
 
         }
         [HttpPost]
-        public async Task<HttpResultObject> GetProductByID(Model.Product.ProductModel product)
+        public async Task<HttpResultObject> GetProductByID(ProductGet product)
         {
             try
             {
@@ -80,6 +80,23 @@ namespace pj3_api.Controllers
             }
 
         }
+		[HttpPost]
+		public async Task<HttpResultObject> GetProductByCategoryID(ProductGet product)
+		{
+			try
+			{
+				var result = await _productService.Value.GetProductByCategoryID(product);
+				if (result != null)
+					return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+				else
+					return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+			}
+			catch (Exception ex)
+			{
+				return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+			}
+
+		}
 
         [HttpPost]
         public async Task<HttpResultObject> CheckUniqueByName(Model.Product.ProductModel product)

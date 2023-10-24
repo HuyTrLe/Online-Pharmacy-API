@@ -77,5 +77,17 @@ namespace pj3_api.Service.User
             var result = await _userRepository.Value.DeleteEducation(deleteEducation);
             return result;
         }
+
+        public async Task<IEnumerable<UserModelResult>> GetAllUser()
+        {
+            var result = await _userRepository.Value.GetAllUser();
+            return result;
+        }
+
+        public async Task<int> UpdateRoleUser(UserModelUpdateRole user)
+        {
+            var result = await _userRepository.Value.UpdateRoleUser(user);
+            return result;
+        }
     }
 }
