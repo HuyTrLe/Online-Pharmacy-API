@@ -11,6 +11,8 @@ namespace pj3_api.Service.Product
 
         Task<int> DeleteProduct(ProductModel product);
 
+        Task<int> CheckUniqueByName(ProductModel product);
+
         Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product);
     }
 }

@@ -13,9 +13,10 @@ namespace pj3_api.Service.ProductSpecification
         }
 
 
-        public Task<int> DeleteProductSpecification(ProductSpecificationModel product)
+        public async Task<int> DeleteProductSpecification(ProductSpecificationModel product)
         {
-            throw new NotImplementedException();
+            var result = await _ProductSpecificationRepository.Value.DeleteProductSpecification(product);
+            return result;
         }
 
         public async Task<IEnumerable<ProductSpecificationModel>> GetProductSpecification()

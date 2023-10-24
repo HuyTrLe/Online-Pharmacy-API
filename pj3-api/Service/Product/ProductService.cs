@@ -11,6 +11,11 @@ namespace pj3_api.Service.Product
             _productRepository = new Lazy<IProductRepository>(() => productRepository);
         }
 
+        public async Task<int> CheckUniqueByName(ProductModel product)
+        {
+            var result = await _productRepository.Value.CheckUniqueByName(product);
+            return result;
+        }
 
         public Task<int> DeleteProduct(ProductModel product)
         {

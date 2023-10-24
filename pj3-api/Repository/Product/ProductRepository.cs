@@ -1,7 +1,6 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Product;
-
 using System.Data;
 
 namespace pj3_api.Repository.Product
@@ -13,6 +12,14 @@ namespace pj3_api.Repository.Product
         {
             _sqlQueryDataSource = new Lazy<MSSQLQueryDataSource>(() =>
                    new MSSQLQueryDataSource(appSettings.MSSQLSettings));
+        }
+
+        public async Task<int> CheckUniqueByName(ProductModel product)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@Name", product.Name, SqlDbType.NChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(ProductQuery.CheckUniqueByName, parameters);
+            return result;
         }
 
         public Task<int> DeleteProduct(ProductModel product)

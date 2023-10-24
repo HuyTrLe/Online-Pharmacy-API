@@ -27,5 +27,7 @@
                                             SpecUnit=@SpecUnit
                                             WHERE ID = @ID";
         public const string GetProductSpecificationByID = "Select * from [ProductSpecification] WHERE ID = @ID";
+
+        public const string DeleteProductSpecification = @"Delete from [ProductSpecification] where ID = @ID";
     }
 }

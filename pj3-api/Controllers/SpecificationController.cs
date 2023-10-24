@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using pj3_api.Model;
+using pj3_api.Model.Career;
 using pj3_api.Model.Specification;
 using pj3_api.Service.Specification;
 using System.Net;
@@ -82,5 +83,29 @@ namespace pj3_api.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<HttpResultObject> DeleteSpecification(SpecificationModel Specification)
+        {
+            try
+            {
+                var result = await _SpecificationService.Value.DeleteSpecification(Specification);
+                if (result != 0)
+                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+                else
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResultObject> CheckUniqueByName(SpecificationModel Specification)
+        {
+            var result = await _SpecificationService.Value.CheckUniqueByName(Specification);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
     }
 }

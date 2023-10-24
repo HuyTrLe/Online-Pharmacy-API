@@ -11,6 +11,8 @@ namespace pj3_api.Repository.Specification
 
         Task<int> DeleteSpecification(SpecificationModel Specification);
 
+        Task<SpecificationModel> CheckUniqueByName(SpecificationModel Specification);
+
         Task<IEnumerable<SpecificationModel>> GetSpecificationByID(SpecificationModel Specification);
     }
 }

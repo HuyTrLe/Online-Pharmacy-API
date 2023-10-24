@@ -12,9 +12,23 @@ namespace pj3_api.Service.Specification
         }
 
 
-        public Task<int> DeleteSpecification(SpecificationModel Specification)
+        public async Task<int> DeleteSpecification(SpecificationModel Specification)
         {
-            throw new NotImplementedException();
+            var result = await _specificationRepository.Value.DeleteSpecification(Specification);
+            return result;
+        }
+
+        public async Task<SpecificationModel> CheckUniqueByName (SpecificationModel Specification)
+        {
+            try
+            {
+                var result = await _specificationRepository.Value.CheckUniqueByName(Specification);
+                return result;
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<IEnumerable<SpecificationModel>> GetSpecification()
