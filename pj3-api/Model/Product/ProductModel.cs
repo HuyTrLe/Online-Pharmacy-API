@@ -18,4 +18,10 @@
 
 
     }
+	public class ProductGet
+	{
+		public int ID { get; set; }
+
+        public int CategoryID { get; set; }
+	}
 }

@@ -29,5 +29,7 @@
                                             Deleted=@Deleted                                          
                                             WHERE ID = @ID";
         public const string GetProductbyID = "Select * from [Product] WHERE ID = @ID";
-    }
+		public const string GetProductbyCategoryID = "Select * from [Product] WHERE CategoryID = @CategoryID";
+
+	}
 }

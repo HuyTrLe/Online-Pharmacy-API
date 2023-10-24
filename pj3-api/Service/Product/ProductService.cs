@@ -23,13 +23,18 @@ namespace pj3_api.Service.Product
             return result;
         }
 
-        public async Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
+        public async Task<ProductModel> GetProductByID(ProductGet product)
         {
             var result = await _productRepository.Value.GetProductByID(product);
             return result;
         }
+		public async Task<IEnumerable<ProductModel>> GetProductByCategoryID(ProductGet product)
+		{
+			var result = await _productRepository.Value.GetProductByCategoryID(product);
+			return result;
+		}
 
-        public async Task<int> InsertProduct(ProductModel product)
+		public async Task<int> InsertProduct(ProductModel product)
         {
             var result = await _productRepository.Value.InsertProduct(product);
             return result;
