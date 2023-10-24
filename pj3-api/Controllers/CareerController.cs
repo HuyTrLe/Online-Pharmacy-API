@@ -31,6 +31,12 @@ namespace pj3_api.Controllers
             var result = await _careerService.Value.GetCareer();
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
+        [HttpGet]
+        public async Task<HttpResultObject> GetAllCareer()
+        {
+            var result = await _careerService.Value.GetAllCareer();
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
         [HttpPost]
         public async Task<HttpResultObject> GetCareerByID(CareerGet careerGet)
         {
@@ -43,7 +49,12 @@ namespace pj3_api.Controllers
             var result = await _careerService.Value.GetCareerJob();
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
-
+        [HttpGet]
+        public async Task<HttpResultObject> GetCareerJobAdmin()
+        {
+            var result = await _careerService.Value.GetCareerJobAdmin();
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
         [HttpPost]
         public async Task<HttpResultObject> GetCareerJobWithUser(CareerJobGet CareerJobGet)
         {

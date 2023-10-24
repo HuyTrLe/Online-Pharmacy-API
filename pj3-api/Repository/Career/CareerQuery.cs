@@ -4,7 +4,9 @@
     {
         #region User
        
-        public const string GetCareer = @"select * from career";
+        public const string GetCareer = @"select * from career where GETDATE() between TimeStart and TimeEnd";
+        public const string GetAllCareer = @"select * from career";
+        public const string GetUser = "Select * from [User] where ID = @UserID";
         public const string GetCareerByID = @"select * from career where ID = @ID";
         public const string InsertCareer = @"INSERT INTO CAREER(
                                             Title,
@@ -26,6 +28,7 @@
                                             @Position,
                                             @Price,
                                             @Skill,
+                                            @Status,
                                             GETDATE()
                                             )
                                              SELECT @ID = SCOPE_IDENTITY();
@@ -49,6 +52,7 @@
 
 
         public const string SelectCareerJob = @"select * from CAREERJOB";
+       // public const string SelectCareerJobAdmin = @"select * from CAREERJOB";
 
         public const string InsertCareerJob = @"INSERT INTO CAREERJOB(
                                             JobID,

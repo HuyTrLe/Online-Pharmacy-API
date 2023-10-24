@@ -13,7 +13,7 @@
                                             PhoneNumber,
                                             Address,
                                             Password,
-                                            RoleID
+                                            RoleID,
                                             CreateDate)                                         
                                             VALUES
                                             (
@@ -22,7 +22,7 @@
                                             @PhoneNumber,
                                             @Address,
                                             @Password,
-                                            @RoleID
+                                            @RoleID,
                                             GETDATE())  
                                             SELECT @ID = SCOPE_IDENTITY()";
         public const string UpdateUserByID = @"Update [User] SET

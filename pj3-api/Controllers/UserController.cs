@@ -72,7 +72,7 @@ namespace pj3_api.Controllers
                 if(result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace pj3_api.Controllers
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace pj3_api.Controllers
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace pj3_api.Controllers
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace pj3_api.Controllers
                 if (result != null)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data =0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -209,7 +209,7 @@ namespace pj3_api.Controllers
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {
@@ -226,7 +226,7 @@ namespace pj3_api.Controllers
                 if (result != 0)
                     return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
                 else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = 0, Message = "NotOK" };
             }
             catch (Exception ex)
             {

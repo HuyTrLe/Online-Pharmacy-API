@@ -7,6 +7,7 @@ namespace pj3_api.Repository.Career
     public interface ICareerRepository
     {
         Task<IEnumerable<CareerModel>> GetCareer();
+        Task<IEnumerable<CareerModel>> GetAllCareer();
         Task<IEnumerable<CareerModel>> GetCareersByUserID(CareerGet CareerGet);
         
         Task<CareerModel> GetCareerByID(CareerGet CareerGet);
@@ -16,6 +17,7 @@ namespace pj3_api.Repository.Career
         Task<int> DeleteCareer(CareerModel CareerModel);
 
         Task<IEnumerable<CareerJobModel>> GetCareerJob();
+        Task<IEnumerable<CareerJob>> GetCareerJobAdmin();
         Task<IEnumerable<CareerJobModel>> GetCareerJobWithUser(CareerJobGet CareerJobGet);
         Task<int> InsertCareerJob(CareerJobModel CareerJobModel);
         Task<int> UpdateCareerJob(CareerJobModel CareerJobModel);

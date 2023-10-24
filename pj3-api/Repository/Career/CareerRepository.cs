@@ -40,20 +40,28 @@ namespace pj3_api.Repository.Career
 
         public async Task<int> InsertCareer(CareerModel CareerModel)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@Title", CareerModel.Title, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@ShortDescription", CareerModel.ShortDescription, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Description", CareerModel.Description, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@TimeStart", CareerModel.TimeStart, SqlDbType.DateTime, ParameterDirection.Input);
-            parameters.Add("@TimeEnd", CareerModel.TimeEnd, SqlDbType.DateTime, ParameterDirection.Input);
-            parameters.Add("@Position", CareerModel.Position, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Price", CareerModel.Price, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@Skill", CareerModel.Skill, SqlDbType.VarChar, ParameterDirection.Input);
-            parameters.Add("@Status", CareerModel.Status, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@ID", CareerModel.ID, SqlDbType.Int, ParameterDirection.Output);
-            var result = await _sqlQueryDataSource.Value.Insert(CareerQuery.InsertCareer, parameters);
-            int newID = parameters.Get<int>("@ID");
-            return newID;
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@Title", CareerModel.Title, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@ShortDescription", CareerModel.ShortDescription, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Description", CareerModel.Description, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@TimeStart", CareerModel.TimeStart, SqlDbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@TimeEnd", CareerModel.TimeEnd, SqlDbType.DateTime, ParameterDirection.Input);
+                parameters.Add("@Position", CareerModel.Position, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Price", CareerModel.Price, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@Skill", CareerModel.Skill, SqlDbType.VarChar, ParameterDirection.Input);
+                parameters.Add("@Status", CareerModel.Status, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@ID", CareerModel.ID, SqlDbType.Int, ParameterDirection.Output);
+                var result = await _sqlQueryDataSource.Value.Insert(CareerQuery.InsertCareer, parameters);
+                int newID = parameters.Get<int>("@ID");
+                return newID;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+           
         }
 
 
@@ -97,6 +105,25 @@ namespace pj3_api.Repository.Career
             return result;
         }
 
+        public async Task<IEnumerable<CareerJob>> GetCareerJobAdmin()
+        {
+            List<CareerJob> careerJobs = new List<CareerJob>();
+            var result = await _sqlQueryDataSource.Value.Select<CareerJobModel>(CareerQuery.SelectCareerJob, null);
+            foreach(var item in result)
+            {
+                CareerJob careerJob = new CareerJob();
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@UserID", item.UserID, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@ID", item.JobID, SqlDbType.Int, ParameterDirection.Input);
+                careerJob.CareerModel = await _sqlQueryDataSource.Value.First<CareerModel>(CareerQuery.GetCareerByID, parameters);
+                careerJob.UserModel = await _sqlQueryDataSource.Value.First<UserModel>(CareerQuery.GetUser, parameters);
+                careerJob.CareerJobID = item.ID;
+                careerJobs.Add(careerJob);
+            }
+            
+            return careerJobs;
+        }
+
         public async Task<IEnumerable<CareerJobModel>> GetCareerJobWithUser(CareerJobGet CareerJobGet)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
@@ -138,6 +165,12 @@ namespace pj3_api.Repository.Career
             parameters.Add("@UserID", CareerGet.UserID, SqlDbType.Int, ParameterDirection.Input);
             parameters.Add("@ID", CareerGet.ID, SqlDbType.Int, ParameterDirection.Input);
             var result = await _sqlQueryDataSource.Value.First<CareerModel>(CareerQuery.GetCareersDetailByUserID, parameters);
+            return result;
+        }
+
+        public async Task<IEnumerable<CareerModel>> GetAllCareer()
+        {
+            var result = await _sqlQueryDataSource.Value.Select<CareerModel>(CareerQuery.GetAllCareer, null);
             return result;
         }
     }

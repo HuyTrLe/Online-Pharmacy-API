@@ -43,17 +43,25 @@ namespace pj3_api.Repository.User
 
         public async Task<int> InsertUser(UserModel user)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@UserName", user.UserName, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Email", user.Email, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@PhoneNumber", user.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Address", user.Address, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@Password", user.Password, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@RoleID", 2/*User*/, SqlDbType.Int, ParameterDirection.Input);
-            parameters.Add("@ID", user.ID, SqlDbType.Int, ParameterDirection.Output);
-            var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertUser, parameters);
-            int newID = parameters.Get<int>("@ID");
-            return newID;
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@UserName", user.UserName, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Email", user.Email, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@PhoneNumber", user.PhoneNumber, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Address", user.Address, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@Password", user.Password, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@RoleID", 2/*User*/, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@ID", user.ID, SqlDbType.Int, ParameterDirection.Output);
+                var result = await _sqlQueryDataSource.Value.Insert(UserQuery.InsertUser, parameters);
+                int newID = parameters.Get<int>("@ID");
+                return newID;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+           
         }
 
         public async Task<int> UpdateUser(UserModelResult user)
@@ -195,6 +203,19 @@ namespace pj3_api.Repository.User
                 userModelResult.Education = await GetEducation(item.ID);
                 list = list.Concat(new[] { userModelResult });
             }         
+            return list;
+        }
+        public async Task<IEnumerable<UserModelResult>> GetCareerJob()
+        {
+            IEnumerable<UserModelResult> list = new List<UserModelResult>();
+            var listUser = await _sqlQueryDataSource.Value.Select<UserModel>(UserQuery.GetAllUser, null);
+            foreach (var item in listUser)
+            {
+                UserModelResult userModelResult = new UserModelResult();
+                userModelResult.UserModel = item;
+                userModelResult.Education = await GetEducation(item.ID);
+                list = list.Concat(new[] { userModelResult });
+            }
             return list;
         }
     }
