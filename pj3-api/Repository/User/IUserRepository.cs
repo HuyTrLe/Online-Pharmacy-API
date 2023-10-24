@@ -11,6 +11,7 @@ namespace pj3_api.Repository.User
         Task<IEnumerable<UserModelResult>> GetAllUser();
         Task<int> InsertUser(UserModel user);
         Task<int> UpdateUser(UserModelResult user);
+        Task<int> UpdateRoleUser(UserModelUpdateRole user);
         Task<int> UpdateFilename(UploadFile user);
         Task<int> CheckPassword(ChangePassword ChangePassword);
         Task<int> ChangePassword(ChangePassword ChangePassword);

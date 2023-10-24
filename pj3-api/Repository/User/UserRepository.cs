@@ -218,5 +218,14 @@ namespace pj3_api.Repository.User
             }
             return list;
         }
+
+        public async Task<int> UpdateRoleUser(UserModelUpdateRole user)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", user.UserID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@RoleID", user.RoleID, SqlDbType.NVarChar, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Update(UserQuery.UpdateRoleID, parameters);
+            return result;
+        }
     }
 }

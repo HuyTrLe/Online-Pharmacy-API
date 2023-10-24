@@ -32,6 +32,9 @@
                                             Address = @Address,
                                             UpdateDate = GETDATE()
                                             WHERE ID = @ID";
+        public const string UpdateRoleID = @"Update [User] SET
+                                            RoleID = @RoleID
+                                            WHERE ID = @ID";
         public const string CheckPassword = "Select * from [User] where ID = @UserID and Password = @Password";
         public const string ChangePassword = @"Update [User] Set
                                                 Password = @Password
