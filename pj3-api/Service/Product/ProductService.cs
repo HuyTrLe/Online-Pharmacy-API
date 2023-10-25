@@ -11,7 +11,7 @@ namespace pj3_api.Service.Product
             _productRepository = new Lazy<IProductRepository>(() => productRepository);
         }
 
-        public async Task<int> CheckUniqueByName(ProductModel product)
+        public async Task<ProductModel> CheckUniqueByName(ProductModel product)
         {
             var result = await _productRepository.Value.CheckUniqueByName(product);
             return result;
@@ -49,6 +49,11 @@ namespace pj3_api.Service.Product
         {
             var result = await _productRepository.Value.UpdateProduct(product);
             return result;
+        }
+
+        public Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
+        {
+            throw new NotImplementedException();
         }
     }
 }

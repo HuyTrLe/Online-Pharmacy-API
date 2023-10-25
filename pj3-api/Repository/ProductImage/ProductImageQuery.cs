@@ -3,7 +3,7 @@
     public class ProductImageQuery
     {
        
-        public const string GetProductImage = "Select * from [ProductImage]";
+        public const string GetProductImage = "Select * from [ProductImage] ORDER BY ProductID";
         public const string InsertProductImage = @"Insert into [ProductImage] (
                                             ProductID,
                                             Image
@@ -19,5 +19,9 @@
                                             Image=@Image                                  
                                             WHERE ID = @ID";
         public const string GetProductImagebyID = "Select * from [ProductImage] WHERE ID = @ID";
+
+        public const string CheckProductImage = "Select * from [ProductImage] WHERE ProductID = @ProductID";
+
+        public const string DeleteImage = @"Delete from [ProductImage] where ID = @ID";
     }
 }

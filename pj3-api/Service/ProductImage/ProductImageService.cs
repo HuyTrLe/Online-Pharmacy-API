@@ -11,9 +11,16 @@ namespace pj3_api.Service.ProductImage
             _ProductImageRepository = new Lazy<IProductImageRepository>(() => ProductImageRepository);
         }
 
-        public Task<int> DeleteProductImage(ProductImageModel ProductImage)
+        public async Task<IEnumerable<ProductImageModel>> CheckProductImage(ProductImageModel ProductImage)
         {
-            throw new NotImplementedException();
+            var result = await _ProductImageRepository.Value.CheckProductImage(ProductImage);
+            return result;
+        }
+
+        public async Task<int> DeleteProductImage(ProductImageModel ProductImage)
+        {
+            var result = await _ProductImageRepository.Value.DeleteProductImage(ProductImage);
+            return result;
         }
 
         public async Task<IEnumerable<ProductImageModel>> GetProductImage()

@@ -1,6 +1,8 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Product;
+using pj3_api.Model.Specification;
+using pj3_api.Repository.Specification;
 using System.Data;
 
 namespace pj3_api.Repository.Product
@@ -14,12 +16,19 @@ namespace pj3_api.Repository.Product
                    new MSSQLQueryDataSource(appSettings.MSSQLSettings));
         }
 
-        public async Task<int> CheckUniqueByName(ProductModel product)
+        public async Task<ProductModel> CheckUniqueByName(ProductModel product)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@Name", product.Name, SqlDbType.NChar, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Insert(ProductQuery.CheckUniqueByName, parameters);
-            return result;
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@Name", product.Name, SqlDbType.NChar, ParameterDirection.Input);
+                var result = await _sqlQueryDataSource.Value.First<ProductModel>(ProductQuery.CheckUniqueByName, parameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task<int> DeleteProduct(ProductModel product)
@@ -101,6 +110,10 @@ namespace pj3_api.Repository.Product
             return result;
         }
 
+        public Task<IEnumerable<ProductModel>> GetProductByID(ProductModel product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

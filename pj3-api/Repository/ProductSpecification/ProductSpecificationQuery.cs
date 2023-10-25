@@ -3,7 +3,7 @@
     public class ProductSpecificationQuery
     {
        
-        public const string GetProductSpecification = "Select * from [ProductSpecification]";
+        public const string GetProductSpecification = "Select * from [ProductSpecification] ORDER BY ProductID";
         public const string InsertProductSpecification = @"Insert into [ProductSpecification] (
                                             ProductID,
                                             SpecID,
@@ -29,5 +29,9 @@
         public const string GetProductSpecificationByID = "Select * from [ProductSpecification] WHERE ID = @ID";
 
         public const string DeleteProductSpecification = @"Delete from [ProductSpecification] where ID = @ID";
+
+        public const string CheckSpecName = @"Select * from [ProductSpecification] where ProductID = @ProductID AND SpecName = @SpecName";
+
+        public const string CheckSpecCount = "Select * from [ProductSpecification] WHERE ProductID = @ProductID";
     }
 }

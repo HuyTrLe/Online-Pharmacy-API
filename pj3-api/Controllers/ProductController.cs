@@ -99,20 +99,10 @@ namespace pj3_api.Controllers
 		}
 
         [HttpPost]
-        public async Task<HttpResultObject> CheckUniqueByName(Model.Product.ProductModel product)
+        public async Task<HttpResultObject> CheckUniqueByName(ProductModel product)
         {
-            try
-            {
-                var result = await _productService.Value.CheckUniqueByName(product);
-                if (result != null)
-                    return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
-                else
-                    return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
-            catch (Exception ex)
-            {
-                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
-            }
+            var result = await _productService.Value.CheckUniqueByName(product);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
 
         }
 

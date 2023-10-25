@@ -2,6 +2,7 @@
 using pj3_api.Model;
 using pj3_api.Model.ProductImage;
 using pj3_api.Repository.Feedback;
+using pj3_api.Repository.Specification;
 using System.Data;
 
 namespace pj3_api.Repository.ProductImage
@@ -15,10 +16,20 @@ namespace pj3_api.Repository.ProductImage
                    new MSSQLQueryDataSource(appSettings.MSSQLSettings));
         }
 
-
-        public Task<int> DeleteProductImage(ProductImageModel ProductImage)
+        public async Task<IEnumerable<ProductImageModel>> CheckProductImage(ProductImageModel ProductImage)
         {
-            throw new NotImplementedException();
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ProductID", ProductImage.ProductID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<ProductImageModel>(ProductImageQuery.CheckProductImage, parameters);
+            return result;
+        }
+
+        public async Task<int> DeleteProductImage(ProductImageModel ProductImage)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", ProductImage.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Delete(ProductImageQuery.DeleteImage, parameters);
+            return result;
         }
 
        

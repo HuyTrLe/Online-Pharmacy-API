@@ -3,6 +3,7 @@ using pj3_api.Model.ProductSpecification;
 using pj3_api.Model;
 using System.Net;
 using pj3_api.Service.ProductSpecification;
+using pj3_api.Model.ProductImage;
 
 namespace pj3_api.Controllers
 {
@@ -100,6 +101,29 @@ namespace pj3_api.Controllers
 
             }
 
+        [HttpPost]
+        public async Task<HttpResultObject> CheckSpecName(ProductSpecificationModel ProductSpecification)
+        {
+            var result = await _ProductSpecificationService.Value.CheckSpecName(ProductSpecification);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+
         }
+
+
+        [HttpPost]
+        public async Task<HttpResultObject> CheckSpecCount(ProductSpecificationModel ProductSpecification)
+        {
+            try
+            {
+                var result = await _ProductSpecificationService.Value.CheckSpecCount(ProductSpecification);
+                return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+            }
+            catch (Exception ex)
+            {
+                return new HttpResultObject() { Code = HttpStatusCode.InternalServerError, Status = "NotOK", Data = "", Message = "NotOK" };
+            }
+
+        }
+    }
     
 }
