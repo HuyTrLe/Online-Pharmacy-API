@@ -13,6 +13,7 @@ namespace pj3_api.Service.User
         Task<CareerModel> GetCareerByID(CareerGet CareerGet);
         Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet);
         Task<IEnumerable<CareerJob>> GetCareerJobAdmin();
+
         Task<int> InsertCareer(CareerModel CareerModel);
         Task<int> UpdateCareer(CareerModel CareerModel);
         Task<int> DeleteCareer(CareerModel CareerModel);
@@ -20,5 +21,6 @@ namespace pj3_api.Service.User
         Task<IEnumerable<CareerJobModel>> GetCareerJobWithUser(CareerJobGet CareerJobGet);
         Task<int> InsertCareerJob(CareerJobModel CareerJobModel);
         Task<int> UpdateCareerJob(CareerJobModel CareerJobModel);
+        Task<int> UpdateStatusCareerJob(UpdateStatusCareerJob UpdateStatusCareerJob);
     }
 }

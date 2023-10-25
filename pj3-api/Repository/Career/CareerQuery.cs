@@ -49,6 +49,9 @@
         public const string UpdateStatus = @"Update career set
                                             Status = @Status
                                             Where ID = @ID";
+        public const string UpdateStatusCareerJob = @"Update CareerJob set
+                                            Status = @Status
+                                            Where ID = @ID";
 
 
         public const string SelectCareerJob = @"select * from CAREERJOB";

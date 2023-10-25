@@ -91,5 +91,11 @@ namespace pj3_api.Service.User
             var result = await _careerRepository.Value.UpdateCareerJob(CareerJobModel);
             return result;
         }
+
+        public async Task<int> UpdateStatusCareerJob(UpdateStatusCareerJob UpdateStatusCareerJob)
+        {
+            var result = await _careerRepository.Value.UpdateStatusCareerJob(UpdateStatusCareerJob);
+            return result;
+        }
     }
 }
