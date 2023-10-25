@@ -118,6 +118,7 @@ namespace pj3_api.Repository.Career
                 careerJob.CareerModel = await _sqlQueryDataSource.Value.First<CareerModel>(CareerQuery.GetCareerByID, parameters);
                 careerJob.UserModel = await _sqlQueryDataSource.Value.First<UserModel>(CareerQuery.GetUser, parameters);
                 careerJob.CareerJobID = item.ID;
+                careerJob.Status = item.Status;
                 careerJobs.Add(careerJob);
             }
             
@@ -171,6 +172,15 @@ namespace pj3_api.Repository.Career
         public async Task<IEnumerable<CareerModel>> GetAllCareer()
         {
             var result = await _sqlQueryDataSource.Value.Select<CareerModel>(CareerQuery.GetAllCareer, null);
+            return result;
+        }
+
+        public async Task<int> UpdateStatusCareerJob(UpdateStatusCareerJob UpdateStatusCareerJob)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", UpdateStatusCareerJob.CareerJobID, SqlDbType.Int, ParameterDirection.Input);
+            parameters.Add("@Status", UpdateStatusCareerJob.Status, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Update(CareerQuery.UpdateStatusCareerJob, parameters);
             return result;
         }
     }

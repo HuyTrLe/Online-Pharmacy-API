@@ -27,7 +27,14 @@ namespace pj3_api.Model.Career
     public class CareerJob
     {
         public int CareerJobID { get; set; }
+        public int Status { get; set; }
         public CareerModel CareerModel { get; set; }
         public UserModel UserModel { get; set; }
+    }
+    public class UpdateStatusCareerJob
+    {
+        public int CareerJobID { get; set; }
+        public int Status { get; set; }
+
     }
 }
