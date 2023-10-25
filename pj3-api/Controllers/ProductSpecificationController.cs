@@ -65,7 +65,7 @@ namespace pj3_api.Controllers
 
             }
             [HttpPost]
-            public async Task<HttpResultObject> GetProductSpecificationByID(ProductSpecificationModel ProductSpecification)
+            public async Task<HttpResultObject> GetProductSpecificationByID(ProductSpecGet ProductSpecification)
             {
                 try
                 {

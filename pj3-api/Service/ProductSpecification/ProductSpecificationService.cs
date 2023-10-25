@@ -24,7 +24,7 @@ namespace pj3_api.Service.ProductSpecification
             return result;
         }
 
-        public async Task<IEnumerable<ProductSpecificationModel>> GetProductSpecificationByID(ProductSpecificationModel product)
+        public async Task<ProductSpecificationModel> GetProductSpecificationByID(ProductSpecGet product)
         {
             var result = await _ProductSpecificationRepository.Value.GetProductSpecificationByID(product);
             return result;

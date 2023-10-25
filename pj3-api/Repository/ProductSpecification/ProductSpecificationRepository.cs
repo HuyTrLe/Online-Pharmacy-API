@@ -1,7 +1,9 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
+using pj3_api.Model.Product;
 using pj3_api.Model.ProductSpecification;
 using pj3_api.Model.User;
+using pj3_api.Repository.Product;
 using pj3_api.Repository.User;
 using System.Data;
 
@@ -27,11 +29,11 @@ namespace pj3_api.Repository.ProductSpecification
             return result;
         }
 
-        public async Task<IEnumerable<ProductSpecificationModel>> GetProductSpecificationByID(ProductSpecificationModel product)
+        public async Task<ProductSpecificationModel> GetProductSpecificationByID(ProductSpecGet product)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
-            var result = await _sqlQueryDataSource.Value.Select<ProductSpecificationModel>(ProductSpecificationQuery.GetProductSpecificationByID, parameters);
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.First<ProductSpecificationModel>(ProductSpecificationQuery.GetProductSpecificationByID, parameters);
             return result;
         }
 
