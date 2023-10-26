@@ -42,6 +42,11 @@ namespace pj3_api.Service.ProductSpecification
             return result;
         }
 
+        public Task<IEnumerable<ProductSpecificationModel>> GetProductSpecificationByID(ProductSpecificationModel product)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> InsertProductSpecification(ProductSpecificationModel product)
         {
             var result = await _ProductSpecificationRepository.Value.InsertProductSpecification(product);

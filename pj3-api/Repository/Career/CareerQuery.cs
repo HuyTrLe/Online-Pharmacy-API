@@ -71,7 +71,8 @@
                                          
                                             ";
         public const string UpdateCareerJob = @"Update CAREERJOB set
-                                            Status = @Status
+                                            Status = @Status,
+                                            UpdatedDate = GETDATE()
                                             Where ID = @ID";
         public const string GetCareersByUserID = @"select ca.*,caj.Status as StatusJob 
                                                     from Career ca

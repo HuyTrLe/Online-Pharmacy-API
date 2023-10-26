@@ -68,6 +68,11 @@ namespace pj3_api.Repository.ProductSpecification
             return result;
         }
 
+        public Task<IEnumerable<ProductSpecificationModel>> GetProductSpecificationByID(ProductSpecificationModel product)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> InsertProductSpecification(ProductSpecificationModel product)
         {
             MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
