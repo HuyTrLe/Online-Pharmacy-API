@@ -12,10 +12,22 @@ namespace pj3_api.Service.ProductSpecification
             _ProductSpecificationRepository = new Lazy<IProductSpecificationRepository>(() => productRepository);
         }
 
-
-        public Task<int> DeleteProductSpecification(ProductSpecificationModel product)
+        public async Task<IEnumerable<ProductSpecificationModel>> CheckSpecCount(ProductSpecificationModel product)
         {
-            throw new NotImplementedException();
+            var result = await _ProductSpecificationRepository.Value.CheckSpecCount(product);
+            return result;
+        }
+
+        public async Task<ProductSpecificationModel> CheckSpecName(ProductSpecificationModel product)
+        {
+            var result = await _ProductSpecificationRepository.Value.CheckSpecName(product);
+            return result;
+        }
+
+        public async Task<int> DeleteProductSpecification(ProductSpecificationModel product)
+        {
+            var result = await _ProductSpecificationRepository.Value.DeleteProductSpecification(product);
+            return result;
         }
 
         public async Task<IEnumerable<ProductSpecificationModel>> GetProductSpecification()

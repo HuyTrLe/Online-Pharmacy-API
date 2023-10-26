@@ -18,5 +18,9 @@
                                             Unit=@Unit                                      
                                             WHERE ID = @ID";
         public const string GetSpecificationByID = "Select * from [Specification] WHERE ID = @ID";
+
+        public const string DeleteSpecification = @"Delete from [Specification] where ID = @ID";
+
+        public const string CheckUniqueByName = @"Select * from [Specification] where Name = @Name";
     }
 }

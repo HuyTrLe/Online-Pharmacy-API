@@ -14,6 +14,7 @@ namespace pj3_api.Repository.Career
         Task<CareerModel> GetCareerDetailByUserID(CareerGet CareerGet);
         Task<int> InsertCareer(CareerModel CareerModel);
         Task<int> UpdateCareer(CareerModel CareerModel);
+        Task<int> UpdateStatusCareerJob(UpdateStatusCareerJob UpdateStatusCareerJob);
         Task<int> DeleteCareer(CareerModel CareerModel);
 
         Task<IEnumerable<CareerJobModel>> GetCareerJob();

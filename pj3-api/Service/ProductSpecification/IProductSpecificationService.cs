@@ -1,4 +1,5 @@
 ﻿using pj3_api.Model.Product;
+using pj3_api.Model.ProductImage;
 using pj3_api.Model.ProductSpecification;
 
 namespace pj3_api.Service.ProductSpecification
@@ -14,5 +15,10 @@ namespace pj3_api.Service.ProductSpecification
 
         Task<ProductSpecificationModel> GetProductSpecificationByID(ProductSpecGet product);
 
+        Task<ProductSpecificationModel> CheckSpecName(ProductSpecificationModel product);
+
+        Task<IEnumerable<ProductSpecificationModel>> CheckSpecCount(ProductSpecificationModel product);
+
+        Task<IEnumerable<ProductSpecificationModel>> GetProductSpecificationByID(ProductSpecificationModel product);
     }
 }

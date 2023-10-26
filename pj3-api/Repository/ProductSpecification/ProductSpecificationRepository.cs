@@ -1,9 +1,13 @@
 ﻿using pj3_api.Database;
 using pj3_api.Model;
 using pj3_api.Model.Product;
+using pj3_api.Model.ProductImage;
 using pj3_api.Model.ProductSpecification;
+using pj3_api.Model.Specification;
 using pj3_api.Model.User;
 using pj3_api.Repository.Product;
+using pj3_api.Repository.ProductImage;
+using pj3_api.Repository.Specification;
 using pj3_api.Repository.User;
 using System.Data;
 
@@ -18,9 +22,36 @@ namespace pj3_api.Repository.ProductSpecification
                    new MSSQLQueryDataSource(appSettings.MSSQLSettings));
         }
 
-        public Task<int> DeleteProductSpecification(ProductSpecificationModel product)
+        public async Task<IEnumerable<ProductSpecificationModel>> CheckSpecCount(ProductSpecificationModel product)
         {
-            throw new NotImplementedException();
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ProductID", product.ProductID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Select<ProductSpecificationModel>(ProductSpecificationQuery.CheckSpecCount,parameters);
+            return result;
+        }
+
+        public async Task<ProductSpecificationModel> CheckSpecName(ProductSpecificationModel product)
+        {
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@ProductID", product.ProductID, SqlDbType.Int, ParameterDirection.Input);
+                parameters.Add("@SpecName", product.SpecName, SqlDbType.NVarChar, ParameterDirection.Input);
+                var result = await _sqlQueryDataSource.Value.First<ProductSpecificationModel>(ProductSpecificationQuery.CheckSpecName, parameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<int> DeleteProductSpecification(ProductSpecificationModel product)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", product.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Insert(ProductSpecificationQuery.DeleteProductSpecification, parameters);
+            return result;
         }
 
         public async Task<IEnumerable<ProductSpecificationModel>> GetProductSpecification()
@@ -54,16 +85,23 @@ namespace pj3_api.Repository.ProductSpecification
 
         public async Task<int> UpdateProductSpecification(ProductSpecificationModel product)
         {
-            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
-            parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@ProductID", product.ProductID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@SpecID", product.SpecID, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@SpecName", product.SpecName, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@SpecValue", product.SpecValue, SqlDbType.NVarChar, ParameterDirection.Input);
-            parameters.Add("@SpecUnit", product.SpecUnit, SqlDbType.NVarChar, ParameterDirection.Input);
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@ID", product.ID, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@ProductID", product.ProductID, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@SpecID", product.SpecID, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@SpecName", product.SpecName, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@SpecValue", product.SpecValue, SqlDbType.NVarChar, ParameterDirection.Input);
+                parameters.Add("@SpecUnit", product.SpecUnit, SqlDbType.NVarChar, ParameterDirection.Input);
 
-            var result = await _sqlQueryDataSource.Value.Update(ProductSpecificationQuery.UpdateProductSpecification, parameters);
-            return result;
+                var result = await _sqlQueryDataSource.Value.Update(ProductSpecificationQuery.UpdateProductSpecification, parameters);
+                return result;
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -110,5 +110,11 @@ namespace pj3_api.Controllers
             var result = await _careerService.Value.UpdateCareerJob(CareerJobModel);
             return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
         }
+        [HttpPost]
+        public async Task<HttpResultObject> UpdateStatusCareerJob(UpdateStatusCareerJob UpdateStatusCareerJob)
+        {
+            var result = await _careerService.Value.UpdateStatusCareerJob(UpdateStatusCareerJob);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+        }
     }
 }

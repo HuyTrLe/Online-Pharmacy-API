@@ -11,6 +11,8 @@ namespace pj3_api.Repository.ProductImage
 
         Task<int> DeleteProductImage(ProductImageModel ProductImage);
 
+        Task<IEnumerable<ProductImageModel>> CheckProductImage(ProductImageModel ProductImage);
+
         Task<IEnumerable<ProductImageModel>> GetProductImageByID(ProductImageModel productImage);
     }
 }

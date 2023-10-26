@@ -4,6 +4,8 @@ using pj3_api.Model;
 using pj3_api.Repository.Specification;
 using System.Data;
 using pj3_api.Repository.ProductSpecification;
+using pj3_api.Model.Career;
+using pj3_api.Repository.Career;
 
 namespace pj3_api.Repository.Specification
 {
@@ -16,9 +18,28 @@ namespace pj3_api.Repository.Specification
                    new MSSQLQueryDataSource(appSettings.MSSQLSettings));
         }
 
-        public Task<int> DeleteSpecification(SpecificationModel Specification)
+        public async Task<SpecificationModel> CheckUniqueByName(SpecificationModel Specification)
         {
-            throw new NotImplementedException();
+            try
+            {
+                MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+                parameters.Add("@Name", Specification.Name, SqlDbType.NChar, ParameterDirection.Input);
+                var result = await _sqlQueryDataSource.Value.First<SpecificationModel>(SpecificationQuery.CheckUniqueByName, parameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public async Task<int> DeleteSpecification(SpecificationModel Specification)
+        {
+            MSSQLDynamicParameters parameters = new MSSQLDynamicParameters();
+            parameters.Add("@ID", Specification.ID, SqlDbType.Int, ParameterDirection.Input);
+            var result = await _sqlQueryDataSource.Value.Delete(SpecificationQuery.DeleteSpecification, parameters);
+            return result;
         }
 
         public async Task<IEnumerable<SpecificationModel>> GetSpecification()

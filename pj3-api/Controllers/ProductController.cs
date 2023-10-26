@@ -98,5 +98,13 @@ namespace pj3_api.Controllers
 
 		}
 
-	}
+        [HttpPost]
+        public async Task<HttpResultObject> CheckUniqueByName(ProductModel product)
+        {
+            var result = await _productService.Value.CheckUniqueByName(product);
+            return new HttpResultObject() { Code = HttpStatusCode.OK, Status = "OK", Data = result, Message = "OK" };
+
+        }
+
+    }
 }
